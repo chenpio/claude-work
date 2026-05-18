@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/weapp/",
   "projectname": "life-thickness",
   "description": "人生厚度 - 情感日记小程序",
-  "appid": "YOUR_APPID_HERE",
+  "appid": "wx68c1ad8ff925f5fb",
   "setting": {
     "urlCheck": true,
     "es6": true,
@@ -40,6 +40,7 @@
     "swc": false,
     "disableSWC": true
   },
+  "cloudfunctionRoot": "cloud/",
   "compileType": "miniprogram",
   "condition": {},
   "editorSetting": {
