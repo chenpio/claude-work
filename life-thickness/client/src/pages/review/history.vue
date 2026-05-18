@@ -17,12 +17,12 @@ import { callCloud } from '@/utils/cloud'
 const list = ref<Record<string, unknown>[]>([])
 
 onMounted(async () => {
-  const res = await callCloud('review/list') as { list: Record<string, unknown>[] }
+  const res = await callCloud('review_list') as { list: Record<string, unknown>[] }
   list.value = res.list || []
 })
 
 function openReview(id: string) {
-  Taro.navigateTo({ url: `/pages/review/review?id=${id}` })
+  Taro.navigateTo({ url: `/pages/review/index?id=${id}` })
 }
 </script>
 

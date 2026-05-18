@@ -64,7 +64,7 @@ onMounted(() => {
 })
 
 async function loadDetail() {
-  const res = await callCloud('diary/detail', { id: diaryId }) as { diary: Diary }
+  const res = await callCloud('diary_detail', { id: diaryId }) as { diary: Diary }
   diary.value = res.diary
 }
 
@@ -85,13 +85,13 @@ function preview(idx: number) {
 }
 
 function handleEdit() {
-  Taro.navigateTo({ url: `/pages/write/write?id=${diaryId}` })
+  Taro.navigateTo({ url: `/pages/write/index?id=${diaryId}` })
 }
 
 async function handleDelete() {
   const res = await Taro.showModal({ title: '确认删除', content: '删除后可保留7天，确定删除？' })
   if (res.confirm) {
-    await callCloud('diary/delete', { id: diaryId })
+    await callCloud('diary_delete', { id: diaryId })
     Taro.showToast({ title: '已删除', icon: 'success' })
     setTimeout(() => Taro.navigateBack(), 800)
   }

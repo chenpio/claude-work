@@ -71,7 +71,7 @@ const calendarDays = computed<CalendarDay[]>(() => {
 
 onMounted(async () => {
   // 获取有日记的日期
-  const res = await callCloud('diary/dates') as { dates: string[] }
+  const res = await callCloud('diary_dates') as { dates: string[] }
   if (res.dates) diaryDates.value = new Set(res.dates)
 })
 
@@ -79,13 +79,13 @@ function prevMonth() { if (month.value === 1) { year.value--; month.value = 12 }
 function nextMonth() { if (month.value === 12) { year.value++; month.value = 1 } else { month.value++ } }
 
 function goDay(date: string) {
-  Taro.navigateTo({ url: `/pages/search/search?date=${date}` })
+  Taro.navigateTo({ url: `/pages/search/index?date=${date}` })
 }
 
 async function randomDiary() {
-  const res = await callCloud('diary/random') as { diary?: { _id: string } }
+  const res = await callCloud('diary_random') as { diary?: { _id: string } }
   if (res.diary) {
-    Taro.navigateTo({ url: `/pages/detail/detail?id=${res.diary._id}` })
+    Taro.navigateTo({ url: `/pages/detail/index?id=${res.diary._id}` })
   }
 }
 </script>

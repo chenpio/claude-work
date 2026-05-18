@@ -241,7 +241,7 @@ async function handleSave() {
   }
   Taro.showLoading({ title: '保存中...' })
   try {
-    await callCloud('diary/create', { formData: { ...form } })
+    await callCloud('diary_create', { formData: { ...form } })
     clearDraft()
     Taro.hideLoading()
     Taro.showToast({ title: '已保存', icon: 'success' })

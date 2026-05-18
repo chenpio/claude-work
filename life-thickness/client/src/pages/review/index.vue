@@ -106,7 +106,7 @@ function getMoodColor(m: number) { return ['#FF8A80', '#FFB74D', '#BDBDBD', '#81
 async function generateReview() {
   Taro.showLoading({ title: '生成中...' })
   try {
-    const res = await callCloud('review/generate', { date: new Date().toISOString().split('T')[0] }) as { ok: boolean; review: Review }
+    const res = await callCloud('review_generate', { date: new Date().toISOString().split('T')[0] }) as { ok: boolean; review: Review }
     if (res.ok) review.value = res.review
     Taro.hideLoading()
   } catch { Taro.hideLoading(); Taro.showToast({ title: '生成失败', icon: 'error' }) }
@@ -115,7 +115,7 @@ async function generateReview() {
 async function askAI(q: string) {
   if (!q.trim()) return
   Taro.showLoading({ title: '思考中...' })
-  const res = await callCloud('review/ask', { reviewId: review.value!._id, question: q.trim() }) as { ok: boolean; answer: string }
+  const res = await callCloud('review_ask', { reviewId: review.value!._id, question: q.trim() }) as { ok: boolean; answer: string }
   if (res.ok) answer.value = res.answer
   Taro.hideLoading()
 }

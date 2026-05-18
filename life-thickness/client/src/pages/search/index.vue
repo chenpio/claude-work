@@ -44,7 +44,7 @@ async function doSearch() {
   Taro.hideLoading()
 }
 
-function goDetail(id: string) { Taro.navigateTo({ url: `/pages/detail/detail?id=${id}` }) }
+function goDetail(id: string) { Taro.navigateTo({ url: `/pages/detail/index?id=${id}` }) }
 </script>
 
 <style lang="scss" scoped>

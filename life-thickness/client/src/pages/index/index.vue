@@ -65,7 +65,7 @@ onMounted(() => {
 })
 
 async function loadDiaries() {
-  const res = await callCloud('diary/list', { page: page.value }) as { list: Diary[]; total: number }
+  const res = await callCloud('diary_list', { page: page.value }) as { list: Diary[]; total: number }
   if (res.list) {
     diaries.value = page.value === 1 ? res.list : [...diaries.value, ...res.list]
     hasMore.value = diaries.value.length < res.total
@@ -82,15 +82,15 @@ function getMoodEmoji(mood: number): string {
 }
 
 function goWrite() {
-  Taro.navigateTo({ url: '/pages/write/write' })
+  Taro.navigateTo({ url: '/pages/write/index' })
 }
 
 function goDetail(id: string) {
-  Taro.navigateTo({ url: `/pages/detail/detail?id=${id}` })
+  Taro.navigateTo({ url: `/pages/detail/index?id=${id}` })
 }
 
 function openTimeMachine() {
-  Taro.navigateTo({ url: '/pages/timeline/timeline?mode=random' })
+  Taro.navigateTo({ url: '/pages/timeline/index?mode=random' })
 }
 </script>
 

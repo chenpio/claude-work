@@ -9,15 +9,15 @@
 
     <!-- 功能列表 -->
     <view class="menu-list">
-      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/timeline/timeline' })">
+      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/timeline/index' })">
         <text>📅 时间轴</text>
         <text class="arrow">→</text>
       </view>
-      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/search/search' })">
+      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/search/index' })">
         <text>🔍 搜索日记</text>
         <text class="arrow">→</text>
       </view>
-      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/settings/settings' })">
+      <view class="menu-item" @tap="Taro.navigateTo({ url: '/pages/settings/index' })">
         <text>⚙️ 设置</text>
         <text class="arrow">→</text>
       </view>
