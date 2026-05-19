@@ -1,21 +1,38 @@
 .profile-page { min-height: 100vh; padding-bottom: 40rpx; }
 
-/* 用户头像区 */
+/* 已授权头像区 */
 .p-hero { text-align: center; padding: 64rpx 0 36rpx; }
-.p-avatar-box { margin-bottom: 20rpx; }
 .p-avatar { width: 140rpx; height: 140rpx; border-radius: 50%; border: 3rpx solid var(--c-card-border); }
 .p-avatar-empty { width: 140rpx; height: 140rpx; margin: 0 auto; border-radius: 50%; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 3rpx solid var(--c-card-border); display: flex; align-items: center; justify-content: center; font-size: 56rpx; }
-.p-nick { font-size: 36rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; }
+.p-nick { font-size: 36rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; margin-top: 16rpx; }
 .p-slogan { font-size: 24rpx; color: var(--c-text-faint); margin-top: 8rpx; display: block; letter-spacing: 2rpx; }
 
-/* 授权按钮 */
-.p-auth { padding: 24rpx 48rpx; }
-.auth-btn { background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 2rpx solid var(--c-card-border); border-radius: 48rpx; padding: 20rpx; font-size: 28rpx; color: var(--c-text); font-weight: 600; }
-.nick-input { width: 100%; height: 80rpx; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 1rpx solid var(--c-card-border); border-radius: 32rpx; padding: 0 24rpx; margin-top: 16rpx; font-size: 28rpx; text-align: center; box-sizing: border-box; }
-.save-profile-btn { margin-top: 20rpx; padding: 20rpx; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); color: #FFFBF5; border-radius: 48rpx; font-size: 28rpx; font-weight: 700; letter-spacing: 4rpx; }
+/* 一键授权区 */
+.p-auth { padding: 40rpx 48rpx; }
+.wx-login-btn {
+  width: 100%; padding: 0; background: none; border: none; line-height: 1;
+  display: flex; flex-direction: column; align-items: center;
+}
+.wx-login-btn::after { border: none; }
+.login-avatar-box { margin-bottom: 16rpx; }
+.login-avatar { width: 160rpx; height: 160rpx; border-radius: 50%; border: 3rpx dashed var(--c-card-border); }
+.login-avatar-empty { width: 160rpx; height: 160rpx; margin: 0 auto; border-radius: 50%; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 3rpx dashed var(--c-card-border); display: flex; align-items: center; justify-content: center; font-size: 64rpx; }
+.login-label { font-size: 28rpx; color: var(--c-primary-end); font-weight: 600; }
+.wx-nick-input {
+  width: 100%; height: 80rpx; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end));
+  border: 1rpx solid var(--c-card-border); border-radius: 32rpx; padding: 0 24rpx;
+  margin-top: 28rpx; font-size: 28rpx; text-align: center; box-sizing: border-box;
+}
+.wx-login-submit {
+  margin-top: 24rpx; padding: 22rpx;
+  background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end));
+  color: #FFFBF5; border-radius: 48rpx; font-size: 30rpx; font-weight: 700; letter-spacing: 6rpx; text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(139,105,20,0.2);
+}
+.auth-hint { font-size: 22rpx; color: var(--c-text-faint); display: block; text-align: center; margin-top: 20rpx; }
 
 /* 统计 */
-.p-stats { display: flex; justify-content: center; align-items: center; gap: 48rpx; padding: 12rpx 0 36rpx; }
+.p-stats { display: flex; justify-content: center; align-items: center; gap: 56rpx; padding: 0 0 36rpx; }
 .p-stat-item { text-align: center; }
 .ps-num { font-size: 40rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; }
 .ps-lab { font-size: 22rpx; color: var(--c-text-faint); margin-top: 4rpx; display: block; }

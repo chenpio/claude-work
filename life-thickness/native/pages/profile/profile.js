@@ -5,7 +5,6 @@ Page({
     hasProfile: false,
     tempAvatarUrl: '',
     diaryCount: 0,
-    totalWords: 0,
     reviewCount: 0,
   },
 
@@ -19,24 +18,24 @@ Page({
       var res = await wx.cloud.callFunction({ name: 'login' })
       if (res.result && res.result.user) {
         var u = res.result.user
+        var hasProfile = !!(u.nickName || u.avatarUrl)
         this.setData({
           nickName: u.nickName || '',
           avatarUrl: u.avatarUrl || '',
-          hasProfile: !!(u.nickName || u.avatarUrl),
+          hasProfile: hasProfile,
         })
       }
     } catch (e) {}
   },
 
   async loadStats() {
+    if (!this.data.hasProfile) return
     try {
       var res = await wx.cloud.callFunction({ name: 'diary_list', data: { pageSize: 1 } })
       var diaryCount = res.result.total || 0
       var reviewRes = await wx.cloud.callFunction({ name: 'review_list' })
       var reviewCount = (reviewRes.result.list || []).length
-      // 粗略计算总字数（实际应该在后端统计）
-      var totalWords = diaryCount > 0 ? '...' : '0'
-      this.setData({ diaryCount: diaryCount, totalWords: totalWords, reviewCount: reviewCount })
+      this.setData({ diaryCount: diaryCount, reviewCount: reviewCount })
     } catch (e) {}
   },
 
@@ -48,32 +47,41 @@ Page({
     this.setData({ nickName: e.detail.value })
   },
 
+  // 失去焦点时自动提交昵称（微信键盘会自动填入）
+  onNickBlur(e) {
+    if (e.detail.value) {
+      this.setData({ nickName: e.detail.value })
+    }
+  },
+
   async saveProfile() {
-    if (!this.data.tempAvatarUrl && !this.data.nickName) {
-      wx.showToast({ title: '请设置头像或昵称', icon: 'none' })
+    var nickName = this.data.nickName
+    var tempAvatarUrl = this.data.tempAvatarUrl
+
+    if (!tempAvatarUrl && !nickName) {
+      wx.showToast({ title: '请点击获取头像或输入昵称', icon: 'none' })
       return
     }
-    wx.showLoading({ title: '保存中...' })
+    wx.showLoading({ title: '登录中...' })
     try {
       var avatarUrl = this.data.avatarUrl
-      if (this.data.tempAvatarUrl) {
-        // 上传头像到云存储
+      if (tempAvatarUrl) {
         var cloudPath = 'avatars/' + Date.now() + '.jpg'
-        var uploadRes = await wx.cloud.uploadFile({ cloudPath: cloudPath, filePath: this.data.tempAvatarUrl })
+        var uploadRes = await wx.cloud.uploadFile({ cloudPath: cloudPath, filePath: tempAvatarUrl })
         avatarUrl = uploadRes.fileID
       }
       await wx.cloud.callFunction({
         name: 'login',
-        data: { action: 'updateProfile', nickName: this.data.nickName, avatarUrl: avatarUrl }
+        data: { action: 'updateProfile', nickName: nickName || '', avatarUrl: avatarUrl }
       })
       wx.hideLoading()
       var app = getApp()
       app.globalData.hasProfile = true
       this.setData({ avatarUrl: avatarUrl, hasProfile: true, tempAvatarUrl: '' })
-      wx.showToast({ title: '已保存 ~', icon: 'success' })
+      wx.showToast({ title: '欢迎回来 ~', icon: 'success' })
     } catch (e) {
       wx.hideLoading()
-      wx.showToast({ title: '保存失败', icon: 'none' })
+      wx.showToast({ title: '登录失败', icon: 'none' })
     }
   },
 
