@@ -1,19 +1,20 @@
-const cloud = require('wx-server-sdk')
+var cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
-const db = cloud.database()
+var db = cloud.database()
 
-exports.main = async (event) => {
-  const { OPENID } = cloud.getWXContext()
-  const { formData, diaryId } = event
+exports.main = function (event) {
+  var OPENID = cloud.getWXContext().OPENID
+  var formData = event.formData || {}
+  var diaryId = event.diaryId
 
-  const diary = {
+  var diary = {
     userId: OPENID,
     date: formData.date,
     weather: formData.weather,
     location: {
       city: (formData.location && formData.location.city) || '',
       district: (formData.location && formData.location.district) || '',
-      hidden: (formData.location && formData.location.hidden) || false,
+      hidden: (formData.location && formData.location.hidden) || false
     },
     content: formData.content || '',
     images: formData.images || [],
@@ -23,16 +24,17 @@ exports.main = async (event) => {
     oneLine: formData.oneLine || '',
     isDeleted: false,
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 
   if (diaryId) {
-    // 更新
-    await db.collection('diaries').doc(diaryId).update({ data: { ...diary, updatedAt: new Date().toISOString() } })
-    return { ok: true, id: diaryId }
+    diary.updatedAt = new Date().toISOString()
+    return db.collection('diaries').doc(diaryId).update({ data: diary }).then(function () {
+      return { ok: true, id: diaryId }
+    })
   } else {
-    // 新建
-    const res = await db.collection('diaries').add({ data: diary })
-    return { ok: true, id: res._id }
+    return db.collection('diaries').add({ data: diary }).then(function (res) {
+      return { ok: true, id: res._id }
+    })
   }
 }

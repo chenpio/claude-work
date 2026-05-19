@@ -1,30 +1,28 @@
-const cloud = require('wx-server-sdk')
+var cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+var db = cloud.database()
 
-exports.main = async () => {
-  const { OPENID } = cloud.getWXContext()
-  const db = cloud.database()
-
-  // 检查用户是否已存在
-  const exist = await db.collection('users').where({ _openid: OPENID }).get()
-  if (!exist.data.length) {
-    await db.collection('users').add({
-      data: {
-        nickName: '',
-        avatarUrl: '',
-        createdAt: new Date().toISOString(),
-        settings: {
-          diaryRemind: true,
-          diaryRemindTime: '21:00',
-          reviewRemind: true,
-          reviewRemindTime: '19:30',
-          doNotDisturb: { start: '23:00', end: '07:00' },
-          locationEnabled: true,
-          locationHidden: false,
-        },
-      },
-    })
-  }
-
-  return { ok: true, user: exist.data[0] }
+exports.main = function () {
+  var OPENID = cloud.getWXContext().OPENID
+  return db.collection('users').where({ _openid: OPENID }).get().then(function (exist) {
+    if (!exist.data.length) {
+      return db.collection('users').add({
+        data: {
+          nickName: '',
+          avatarUrl: '',
+          createdAt: new Date().toISOString(),
+          settings: {
+            diaryRemind: true,
+            diaryRemindTime: '21:00',
+            reviewRemind: true,
+            reviewRemindTime: '19:30',
+            doNotDisturb: { start: '23:00', end: '07:00' },
+            locationEnabled: true,
+            locationHidden: false
+          }
+        }
+      }).then(function () { return { ok: true } })
+    }
+    return { ok: true, user: exist.data[0] }
+  })
 }

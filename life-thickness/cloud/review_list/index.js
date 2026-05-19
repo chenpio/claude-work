@@ -1,14 +1,10 @@
-const cloud = require('wx-server-sdk')
+var cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
-const db = cloud.database()
+var db = cloud.database()
 
-exports.main = async () => {
-  const { OPENID } = cloud.getWXContext()
-  const list = await db.collection('reviews')
-    .where({ userId: OPENID })
-    .orderBy('createdAt', 'desc')
-    .limit(20)
-    .get()
-
-  return { ok: true, list: list.data }
+exports.main = function () {
+  var OPENID = cloud.getWXContext().OPENID
+  return db.collection('reviews').where({ userId: OPENID }).orderBy('createdAt', 'desc').limit(20).get().then(function (res) {
+    return { ok: true, list: res.data }
+  })
 }

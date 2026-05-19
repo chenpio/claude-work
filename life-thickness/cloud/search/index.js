@@ -1,12 +1,18 @@
-const cloud = require('wx-server-sdk')
+var cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
-const db = cloud.database()
+var db = cloud.database()
 
-exports.main = async (event) => {
-  const { OPENID } = cloud.getWXContext()
-  const { keyword, dateStart, dateEnd, tagFilter, emotionFilter, page = 1, pageSize = 20 } = event
+exports.main = function (event) {
+  var OPENID = cloud.getWXContext().OPENID
+  var keyword = event.keyword || ''
+  var dateStart = event.dateStart || ''
+  var dateEnd = event.dateEnd || ''
+  var tagFilter = event.tagFilter || ''
+  var emotionFilter = event.emotionFilter || ''
+  var page = event.page || 1
+  var pageSize = event.pageSize || 20
 
-  const where = { userId: OPENID, isDeleted: false }
+  var where = { userId: OPENID, isDeleted: false }
 
   if (dateStart && dateEnd) {
     where.date = db.command.gte(dateStart).and(db.command.lte(dateEnd))
@@ -21,12 +27,13 @@ exports.main = async (event) => {
     where.emotionTags = db.command.in([emotionFilter])
   }
 
-  const list = await db.collection('diaries')
+  return db.collection('diaries')
     .where(where)
     .orderBy('date', 'desc')
     .skip((page - 1) * pageSize)
     .limit(pageSize)
     .get()
-
-  return { ok: true, list: list.data }
+    .then(function (res) {
+      return { ok: true, list: res.data }
+    })
 }
