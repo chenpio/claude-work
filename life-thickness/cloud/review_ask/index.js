@@ -32,7 +32,7 @@ async function callAI(messages) {
           try {
             const result = JSON.parse(body)
             if (result.error) { reject(new Error(result.error.message || JSON.stringify(result.error))); return }
-            const text = result.choices?.[0]?.message?.content || ''
+            const text = (result.choices && result.choices[0] && result.choices[0].message && result.choices[0].message.content) || ''
             if (!text) { reject(new Error('API返回空: ' + body.slice(0, 200))); return }
             resolve(text)
           } catch (e) { reject(new Error('解析失败: ' + (e.message || '') + ' body:' + body.slice(0, 300))) }

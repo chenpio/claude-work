@@ -11,9 +11,9 @@ exports.main = async (event) => {
     date: formData.date,
     weather: formData.weather,
     location: {
-      city: formData.location?.city || '',
-      district: formData.location?.district || '',
-      hidden: formData.location?.hidden || false,
+      city: (formData.location && formData.location.city) || '',
+      district: (formData.location && formData.location.district) || '',
+      hidden: (formData.location && formData.location.hidden) || false,
     },
     content: formData.content || '',
     images: formData.images || [],

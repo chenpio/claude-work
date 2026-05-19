@@ -35,7 +35,7 @@ exports.main = async () => {
 
   // 生成临时下载链接
   const urlRes = await cloud.getTempFileURL({ fileList: [uploadRes.fileID] })
-  const url = urlRes.fileList[0]?.tempFileURL || ''
+  const url = (urlRes.fileList && urlRes.fileList[0] && urlRes.fileList[0].tempFileURL) || ''
 
   return { ok: true, url }
 }
