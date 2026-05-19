@@ -5,7 +5,7 @@ App({
       return
     }
     wx.cloud.init({
-      env: 'cloudbase-d7g2pf9w6a94c6407',
+      env: 'cloud1-d5ge5ii4tcce8e0fe',
       traceUser: true,
     })
     console.log('云开发初始化完成')
