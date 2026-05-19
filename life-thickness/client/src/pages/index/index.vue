@@ -2,24 +2,14 @@
   <view class="home">
     <text class="title">人生厚度</text>
     <text class="sub">记录人生的长度，沉淀生活的厚度</text>
-    <view class="btn" @tap="goWrite">写日记</view>
-    <view class="btn" @tap="goReview">复盘</view>
+    <view class="btn">写日记</view>
+    <view class="btn">复盘</view>
   </view>
 </template>
 
 <script>
-import Taro from '@tarojs/taro'
-
 export default {
   name: 'Index',
-  methods: {
-    goWrite() {
-      Taro.navigateTo({ url: '/pages/write/index' })
-    },
-    goReview() {
-      Taro.switchTab({ url: '/pages/review/index' })
-    },
-  },
 }
 </script>
 
