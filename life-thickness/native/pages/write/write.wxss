@@ -32,8 +32,9 @@
 .w-tag { padding: 12rpx 28rpx; border-radius: 36rpx; font-size: 26rpx; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 1rpx solid var(--c-card-border); color: var(--c-text); font-weight: 600; transition: all 0.15s; }
 .w-tag.sel { background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); color: #fff; border-color: transparent; }
 
-.save-area { padding: 36rpx 0; }
+.save-area { padding: 36rpx 0; display: flex; justify-content: center; }
 .save-btn {
+  width: 480rpx;
   background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end));
   color: #FFFBF5; text-align: center; padding: 28rpx; border-radius: 48rpx;
   font-size: 32rpx; font-weight: 800; letter-spacing: 8rpx;
