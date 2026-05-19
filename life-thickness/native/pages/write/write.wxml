@@ -8,13 +8,13 @@
   <view class="field">
     <text class="label">天气</text>
     <view class="opts">
-      <text wx:for="{{weathers}}" wx:key="*this" class="opt {{weather===item ? 'sel' : ''}}" bindtap="setWeather" data-v="{{item}}">{{item}}</text>
+      <text wx:for="{{weatherList}}" wx:key="*this" class="opt {{item.selected ? 'sel' : ''}}" bindtap="setWeather" data-idx="{{index}}">{{item.label}}</text>
     </view>
   </view>
   <view class="field">
     <text class="label">心情</text>
     <view class="moods">
-      <text wx:for="{{moodList}}" wx:key="v" class="mood {{mood===item.v ? 'sel' : ''}}" bindtap="setMood" data-v="{{item.v}}">{{item.e}}</text>
+      <text wx:for="{{moodList}}" wx:key="v" class="mood {{item.selected ? 'sel' : ''}}" bindtap="setMood" data-idx="{{index}}">{{item.e}}</text>
     </view>
   </view>
   <view class="field">
@@ -24,7 +24,7 @@
   <view class="field">
     <text class="label">标签</text>
     <view class="opts">
-      <text wx:for="{{allTags}}" wx:key="*this" class="opt {{utils.includes(tags, item) ? 'sel' : ''}}" bindtap="toggleTag" data-v="{{item}}">#{{item}}</text>
+      <text wx:for="{{allTags}}" wx:key="*this" class="opt {{item.selected ? 'sel' : ''}}" bindtap="toggleTag" data-idx="{{index}}">#{{item.label}}</text>
     </view>
   </view>
   <view class="field">
