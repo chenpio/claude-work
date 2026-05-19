@@ -1,11 +1,12 @@
-.write-page { padding: 24rpx; padding-top: 100rpx; min-height: 100vh; background: #FAF7F2; }
-.toolbar { position: fixed; top:0; left:0; right:0; display: flex; justify-content: space-between; align-items: center; padding: 24rpx 32rpx; background: rgba(250,247,242,0.95); z-index: 100; border-bottom: 1rpx solid #ECECEC; }
-.tb-title { font-size: 34rpx; font-weight: 600; }
-.tb-btn { font-size: 30rpx; color: #9E9E9E; padding: 8rpx 16rpx; }
-.tb-btn.save { color: #8B7F6E; font-weight: 600; }
+.write-page { padding-top: 80rpx; min-height: 100vh; background: #FAF7F2; }
+.toolbar { position: fixed; top:0; left:0; right:0; z-index: 999; display: flex; justify-content: space-between; align-items: center; padding: 16rpx 24rpx; background: #8B7F6E; color: #fff; }
+.tb-title { font-size: 32rpx; font-weight: 600; }
+.tb-btn { font-size: 28rpx; padding: 12rpx 20rpx; border-radius: 8rpx; }
+.tb-btn.save { background: rgba(255,255,255,0.2); font-weight: 600; }
+.fields { padding: 24rpx; }
 .field { margin-bottom: 36rpx; }
 .label { font-size: 28rpx; font-weight: 500; color: #3D3D3D; display: block; margin-bottom: 16rpx; }
-.val { font-size: 30rpx; color: #8B7F6E; border-bottom: 2rpx dashed #C4B5A5; padding: 8rpx 0; }
+.val { font-size: 30rpx; color: #8B7F6E; border-bottom: 2rpx dashed #C4B5A5; padding: 8rpx 0; display: inline-block; }
 .opts { display: flex; flex-wrap: wrap; gap: 16rpx; }
 .opt { padding: 12rpx 24rpx; border-radius: 32rpx; font-size: 26rpx; background: #F5F0E8; color: #8B7F6E; }
 .opt.sel { background: #8B7F6E; color: #fff; }

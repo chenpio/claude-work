@@ -1,5 +1,5 @@
 {
-  "miniprogramRoot": "dist/weapp/",
+  "miniprogramRoot": "native/",
   "projectname": "life-thickness",
   "description": "人生厚度 - 情感日记小程序",
   "appid": "wx68c1ad8ff925f5fb",
