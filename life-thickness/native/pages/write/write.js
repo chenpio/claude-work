@@ -16,7 +16,7 @@ Page({
     autoFocus: false,
   },
   onLoad() { this.setData({ autoFocus: true }) },
-  onShow() { getApp().requireAuth() },
+  onShow() {},
   toggleTags() { this.setData({ showTags: !this.data.showTags }) },
   onDate(e) { this.setData({ date: e.detail.value }) },
   setWeather(e) {

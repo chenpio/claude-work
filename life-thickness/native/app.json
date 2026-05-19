@@ -21,10 +21,10 @@
     "backgroundColor": "#FFFFFF",
     "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/profile/profile", "text": "我的" },
       { "pagePath": "pages/index/index", "text": "日记" },
       { "pagePath": "pages/write/write", "text": "写日记" },
-      { "pagePath": "pages/review/review", "text": "复盘" }
+      { "pagePath": "pages/review/review", "text": "复盘" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   }
 }
