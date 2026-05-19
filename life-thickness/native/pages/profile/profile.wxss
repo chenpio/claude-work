@@ -1,11 +1,27 @@
-.profile-page { min-height: 100vh; }
-.p-hero { text-align: center; padding: 80rpx 0 56rpx; }
-.p-name {
-  font-size: 44rpx; font-weight: 800; display: block; letter-spacing: 8rpx;
-  background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.p-desc { font-size: 24rpx; color: var(--c-text-faint); margin-top: 10rpx; display: block; letter-spacing: 2rpx; }
+.profile-page { min-height: 100vh; padding-bottom: 40rpx; }
+
+/* 用户头像区 */
+.p-hero { text-align: center; padding: 64rpx 0 36rpx; }
+.p-avatar-box { margin-bottom: 20rpx; }
+.p-avatar { width: 140rpx; height: 140rpx; border-radius: 50%; border: 3rpx solid var(--c-card-border); }
+.p-avatar-empty { width: 140rpx; height: 140rpx; margin: 0 auto; border-radius: 50%; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 3rpx solid var(--c-card-border); display: flex; align-items: center; justify-content: center; font-size: 56rpx; }
+.p-nick { font-size: 36rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; }
+.p-slogan { font-size: 24rpx; color: var(--c-text-faint); margin-top: 8rpx; display: block; letter-spacing: 2rpx; }
+
+/* 授权按钮 */
+.p-auth { padding: 24rpx 48rpx; }
+.auth-btn { background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 2rpx solid var(--c-card-border); border-radius: 48rpx; padding: 20rpx; font-size: 28rpx; color: var(--c-text); font-weight: 600; }
+.nick-input { width: 100%; height: 80rpx; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 1rpx solid var(--c-card-border); border-radius: 32rpx; padding: 0 24rpx; margin-top: 16rpx; font-size: 28rpx; text-align: center; box-sizing: border-box; }
+.save-profile-btn { margin-top: 20rpx; padding: 20rpx; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); color: #FFFBF5; border-radius: 48rpx; font-size: 28rpx; font-weight: 700; letter-spacing: 4rpx; }
+
+/* 统计 */
+.p-stats { display: flex; justify-content: center; align-items: center; gap: 48rpx; padding: 12rpx 0 36rpx; }
+.p-stat-item { text-align: center; }
+.ps-num { font-size: 40rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; }
+.ps-lab { font-size: 22rpx; color: var(--c-text-faint); margin-top: 4rpx; display: block; }
+.p-stat-split { width: 1rpx; height: 40rpx; background: var(--c-card-border); }
+
+/* 菜单 */
 .p-menu { padding: 0 24rpx; }
 .p-item {
   display: flex; align-items: center; gap: 18rpx; padding: 34rpx 28rpx;
