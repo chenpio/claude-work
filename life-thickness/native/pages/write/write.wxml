@@ -1,41 +1,37 @@
 <view class="write-page">
-  <view class="toolbar">
-    <text class="tb-btn" bindtap="goBack">← 返回</text>
-    <text class="tb-title">写日记</text>
-    <text class="tb-btn save" bindtap="save">✓ 保存</text>
+  <view class="field">
+    <text class="label">日期</text>
+    <picker mode="date" value="{{date}}" bindchange="onDate">
+      <text class="val">{{date}}</text>
+    </picker>
   </view>
-  <view class="fields">
-    <view class="field">
-      <text class="label">日期</text>
-      <picker mode="date" value="{{date}}" bindchange="onDate">
-        <text class="val">{{date}}</text>
-      </picker>
+  <view class="field">
+    <text class="label">天气</text>
+    <view class="opts">
+      <text wx:for="{{weathers}}" wx:key="*this" class="opt {{weather===item ? 'sel' : ''}}" bindtap="setWeather" data-v="{{item}}">{{item}}</text>
     </view>
-    <view class="field">
-      <text class="label">天气</text>
-      <view class="opts">
-        <text wx:for="{{weathers}}" wx:key="*this" class="opt {{weather===item ? 'sel' : ''}}" bindtap="setWeather" data-v="{{item}}">{{item}}</text>
-      </view>
+  </view>
+  <view class="field">
+    <text class="label">心情</text>
+    <view class="moods">
+      <text wx:for="{{moodList}}" wx:key="v" class="mood {{mood===item.v ? 'sel' : ''}}" bindtap="setMood" data-v="{{item.v}}">{{item.e}}</text>
     </view>
-    <view class="field">
-      <text class="label">心情</text>
-      <view class="moods">
-        <text wx:for="{{moodList}}" wx:key="v" class="mood {{mood===item.v ? 'sel' : ''}}" bindtap="setMood" data-v="{{item.v}}">{{item.e}}</text>
-      </view>
+  </view>
+  <view class="field">
+    <text class="label">正文</text>
+    <textarea class="content" value="{{content}}" placeholder="今天发生了什么？" bindinput="onContent" auto-height />
+  </view>
+  <view class="field">
+    <text class="label">标签</text>
+    <view class="opts">
+      <text wx:for="{{allTags}}" wx:key="*this" class="opt {{utils.includes(tags, item) ? 'sel' : ''}}" bindtap="toggleTag" data-v="{{item}}">#{{item}}</text>
     </view>
-    <view class="field">
-      <text class="label">正文</text>
-      <textarea class="content" value="{{content}}" placeholder="今天发生了什么？" bindinput="onContent" auto-height />
-    </view>
-    <view class="field">
-      <text class="label">标签</text>
-      <view class="opts">
-        <text wx:for="{{allTags}}" wx:key="*this" class="opt {{utils.includes(tags, item) ? 'sel' : ''}}" bindtap="toggleTag" data-v="{{item}}">#{{item}}</text>
-      </view>
-    </view>
-    <view class="field">
-      <text class="label">一句话</text>
-      <input class="input" value="{{oneLine}}" placeholder="用一句话概括今天" bindinput="onOneLine" maxlength="50" />
-    </view>
+  </view>
+  <view class="field">
+    <text class="label">一句话</text>
+    <input class="input" value="{{oneLine}}" placeholder="用一句话概括今天" bindinput="onOneLine" maxlength="50" />
+  </view>
+  <view class="bottom-bar">
+    <view class="save-btn" bindtap="save">保存日记</view>
   </view>
 </view>

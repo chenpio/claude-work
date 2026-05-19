@@ -26,7 +26,6 @@ Page({
     else if (tags.length < 5) tags.push(v)
     this.setData({ tags })
   },
-  goBack() { wx.navigateBack() },
   async save() {
     if (!this.data.content.trim()) { wx.showToast({ title: '请写点东西', icon: 'none' }); return }
     wx.showLoading({ title: '保存中...' })
