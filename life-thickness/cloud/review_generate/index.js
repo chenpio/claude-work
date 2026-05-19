@@ -9,7 +9,7 @@ const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]'
 
 async function callAI(prompt) {
   const https = require('https')
-  const url = new URL(`${ANTHROPIC_BASE_URL}/messages`)
+  const url = new URL(`${ANTHROPIC_BASE_URL}/v1/messages`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
       model: ANTHROPIC_MODEL,
@@ -144,6 +144,6 @@ ${JSON.stringify(diaryListText, null, 2)}
     }
   } catch (err) {
     console.error('AI生成失败:', err)
-    return { ok: false, error: 'AI生成失败，请稍后重试' }
+    return { ok: false, error: 'AI生成失败: ' + (err.message || JSON.stringify(err).slice(0, 200)) }
   }
 }

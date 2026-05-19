@@ -8,7 +8,7 @@ const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]'
 
 async function callAI(messages) {
   const https = require('https')
-  const url = new URL(`${ANTHROPIC_BASE_URL}/messages`)
+  const url = new URL(`${ANTHROPIC_BASE_URL}/v1/messages`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
       model: ANTHROPIC_MODEL,
