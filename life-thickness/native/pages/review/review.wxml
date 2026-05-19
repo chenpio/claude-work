@@ -1,13 +1,19 @@
 <view class="review-page">
   <text class="title">复盘报告</text>
-  <view wx:if="{{loading}}" class="status">加载中...</view>
-  <view wx:elif="{{!review}}" class="empty">
-    <text class="empty-text">还未生成本周复盘</text>
+
+  <view class="gen-bar">
     <view class="gen-btn" bindtap="generate">生成本周复盘</view>
   </view>
+
+  <view wx:if="{{loading}}" class="status">加载中...</view>
+
+  <view wx:elif="{{!review}}" class="empty">
+    <text class="empty-text">还未生成本周复盘</text>
+  </view>
+
   <view wx:else>
     <view class="card">
-      <text class="card-title">本周概览</text>
+      <text class="card-title">{{review.weekStart}} ~ {{review.weekEnd}} · 本周概览</text>
       <view class="grid">
         <view class="g-item"><text class="num">{{review.overview.diaryCount}}</text><text class="lab">日记篇数</text></view>
         <view class="g-item"><text class="num">{{review.overview.totalWords}}</text><text class="lab">总字数</text></view>
@@ -22,6 +28,15 @@
     <view class="card" wx:if="{{review.suggestions.length}}">
       <text class="card-title">下周建议</text>
       <view wx:for="{{review.suggestions}}" wx:key="*this" class="sug">· {{item}}</view>
+    </view>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history" wx:if="{{history.length}}">
+    <text class="h-title">历史复盘</text>
+    <view wx:for="{{history}}" wx:key="_id" class="card h-item" bindtap="showReview" data-idx="{{index}}">
+      <text class="h-range">{{item.weekStart}} ~ {{item.weekEnd}}</text>
+      <text class="h-stat">{{item.overview.diaryCount}}篇日记 · 心情 {{item.overview.avgMood}}</text>
     </view>
   </view>
 </view>
