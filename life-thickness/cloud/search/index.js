@@ -17,7 +17,8 @@ exports.main = function (event) {
   if (dateStart && dateEnd) {
     where.date = db.command.gte(dateStart).and(db.command.lte(dateEnd))
   }
-  if (keyword) {
+  // 有日期筛选时不强制匹配正文（时间轴过来的keyword就是日期）
+  if (keyword && !dateStart) {
     where.content = db.RegExp({ regexp: keyword, options: 'i' })
   }
   if (tagFilter) {
