@@ -102,10 +102,29 @@ exports.main = function (event) {
         review.weekStart = start
         review.weekEnd = end
         review.createdAt = new Date().toISOString()
-        return db.collection('reviews').add({ data: review })
-      }).then(function (saveResult) {
-        review._id = saveResult._id
-        return { ok: true, review: review }
+        review.updatedAt = new Date().toISOString()
+
+        // 查本周是否已有复盘，有则覆盖
+        return db.collection('reviews').where({
+          userId: OPENID,
+          weekStart: start,
+          weekEnd: end
+        }).get().then(function (existRes) {
+          if (existRes.data.length) {
+            // 覆盖更新
+            var existId = existRes.data[0]._id
+            return db.collection('reviews').doc(existId).update({ data: review }).then(function () {
+              review._id = existId
+              return { ok: true, review: review, updated: true }
+            })
+          } else {
+            // 新建
+            return db.collection('reviews').add({ data: review }).then(function (addRes) {
+              review._id = addRes._id
+              return { ok: true, review: review, updated: false }
+            })
+          }
+        })
       })
     })
     .catch(function (err) {
