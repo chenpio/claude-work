@@ -4,22 +4,22 @@
     <text class="sub">记录人生的长度，沉淀生活的厚度</text>
     <view class="btn" @tap="goWrite">写日记</view>
     <view class="btn" @tap="goReview">复盘</view>
-    <text v-if="msg">{{ msg }}</text>
   </view>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script>
 import Taro from '@tarojs/taro'
 
-const msg = ref('Hello World')
-
-function goWrite() {
-  Taro.navigateTo({ url: '/pages/write/index' })
-}
-
-function goReview() {
-  Taro.switchTab({ url: '/pages/review/index' })
+export default {
+  name: 'Index',
+  methods: {
+    goWrite() {
+      Taro.navigateTo({ url: '/pages/write/index' })
+    },
+    goReview() {
+      Taro.switchTab({ url: '/pages/review/index' })
+    },
+  },
 }
 </script>
 
