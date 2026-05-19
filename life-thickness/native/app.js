@@ -22,7 +22,7 @@ App({
   requireAuth() {
     if (!this.globalData.hasProfile) {
       wx.switchTab({ url: '/pages/profile/profile' })
-      wx.showToast({ title: '请先设置头像和昵称', icon: 'none' })
+      // 未授权，静默跳转"我的"
       return false
     }
     return true
