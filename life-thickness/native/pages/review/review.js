@@ -1,7 +1,7 @@
 Page({
   data: { review: null, history: [], loading: false },
 
-  onShow() { this.loadHistory() },
+  onShow() { if (!getApp().requireAuth()) return; this.loadHistory() },
 
   async loadHistory() {
     const res = await wx.cloud.callFunction({ name: 'review_list' })

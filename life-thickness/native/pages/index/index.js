@@ -4,6 +4,7 @@ Page({
   data: { diaries: [], loading: true, greeting: '' },
 
   onShow() {
+    if (!getApp().requireAuth()) return
     this.setGreeting()
     this.loadDiaries()
   },

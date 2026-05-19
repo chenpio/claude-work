@@ -67,6 +67,8 @@ Page({
         data: { action: 'updateProfile', nickName: this.data.nickName, avatarUrl: avatarUrl }
       })
       wx.hideLoading()
+      var app = getApp()
+      app.globalData.hasProfile = true
       this.setData({ avatarUrl: avatarUrl, hasProfile: true, tempAvatarUrl: '' })
       wx.showToast({ title: '已保存 ~', icon: 'success' })
     } catch (e) {
