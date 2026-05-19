@@ -1,26 +1,31 @@
 <view class="profile-page">
   <view class="p-hero">
-    <!-- 已授权 -->
-    <view wx:if="{{hasProfile}}">
+    <!-- 已登录 -->
+    <block wx:if="{{hasProfile}}">
       <image wx:if="{{avatarUrl}}" class="p-avatar" src="{{avatarUrl}}" mode="aspectFill" />
       <view wx:else class="p-avatar-empty">👤</view>
       <text class="p-nick">{{nickName || '人生厚度'}}</text>
       <text class="p-slogan">记录人生的长度，沉淀生活的厚度</text>
-    </view>
+    </block>
 
-    <!-- 未授权：一键登录 -->
-    <view wx:else class="p-auth">
-      <button class="wx-login-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-        <view class="login-avatar-box">
-          <image wx:if="{{tempAvatarUrl}}" class="login-avatar" src="{{tempAvatarUrl}}" mode="aspectFill" />
-          <view wx:else class="login-avatar-empty">👤</view>
-        </view>
-        <text class="login-label">点击获取微信头像</text>
+    <!-- 未登录：一键授权 -->
+    <block wx:else>
+      <view class="p-avatar-empty big">📖</view>
+      <text class="p-slogan" style="margin-bottom:32rpx;">记录人生的长度，沉淀生活的厚度</text>
+      <button class="onekey-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <text class="onekey-icon">{{tempAvatarUrl ? '✅' : '👤'}}</text>
+        <text class="onekey-text">{{tempAvatarUrl ? '已选择头像，点击换一张' : '微信一键登录'}}</text>
       </button>
-      <input class="wx-nick-input" type="nickname" value="{{nickName}}" placeholder="微信昵称（点击自动填入）" bindinput="onNickInput" bindblur="onNickBlur" />
-      <view class="wx-login-submit" bindtap="saveProfile">✓ 完成登录</view>
-      <text class="auth-hint">仅用于个人资料展示，头像昵称取自微信</text>
-    </view>
+      <input
+        wx:if="{{tempAvatarUrl}}"
+        class="wx-nick-input"
+        type="nickname"
+        placeholder="微信昵称（点击自动填入）"
+        bindinput="onNickInput"
+        bindconfirm="saveProfile"
+      />
+      <text wx:if="{{tempAvatarUrl}}" class="auth-hint">👆 点击昵称框自动填入微信名，然后点键盘确认键</text>
+    </block>
   </view>
 
   <view class="p-stats" wx:if="{{hasProfile}}">

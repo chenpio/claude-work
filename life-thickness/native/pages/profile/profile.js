@@ -39,27 +39,23 @@ Page({
     } catch (e) {}
   },
 
+  // 选择头像后，显示昵称输入框
   onChooseAvatar(e) {
     this.setData({ tempAvatarUrl: e.detail.avatarUrl })
   },
 
+  // 昵称输入
   onNickInput(e) {
     this.setData({ nickName: e.detail.value })
   },
 
-  // 失去焦点时自动提交昵称（微信键盘会自动填入）
-  onNickBlur(e) {
-    if (e.detail.value) {
-      this.setData({ nickName: e.detail.value })
-    }
-  },
-
+  // 用户点键盘确认键 → 自动保存
   async saveProfile() {
     var nickName = this.data.nickName
     var tempAvatarUrl = this.data.tempAvatarUrl
 
-    if (!tempAvatarUrl && !nickName) {
-      wx.showToast({ title: '请点击获取头像或输入昵称', icon: 'none' })
+    if (!tempAvatarUrl || !nickName) {
+      wx.showToast({ title: '请选择头像并输入昵称', icon: 'none' })
       return
     }
     wx.showLoading({ title: '登录中...' })
@@ -72,7 +68,7 @@ Page({
       }
       await wx.cloud.callFunction({
         name: 'login',
-        data: { action: 'updateProfile', nickName: nickName || '', avatarUrl: avatarUrl }
+        data: { action: 'updateProfile', nickName: nickName, avatarUrl: avatarUrl }
       })
       wx.hideLoading()
       var app = getApp()
