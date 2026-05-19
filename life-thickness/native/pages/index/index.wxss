@@ -1,47 +1,59 @@
-.home { padding: 0 0 120rpx; min-height: 100vh; background: var(--c-page); }
+.home { padding: 0 0 120rpx; min-height: 100vh; }
 
-/* ---- 顶部 ---- */
-.hero { padding: 80rpx 40rpx 48rpx; }
-.hero-date { font-size: 26rpx; color: var(--c-text-faint); display: block; margin-bottom: 12rpx; }
-.hero-title { font-size: 48rpx; font-weight: 800; color: var(--c-text); display: block; letter-spacing: 4rpx; }
-.hero-sub { font-size: 28rpx; color: var(--c-text-light); display: block; margin-top: 12rpx; font-style: italic; }
+/* 顶部 */
+.hero { padding: 80rpx 36rpx 40rpx; }
+.hero-date { font-size: 24rpx; color: var(--c-text-light); letter-spacing: 4rpx; display: block; }
+.hero-title {
+  font-size: 48rpx; font-weight: 800; color: transparent;
+  background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end));
+  -webkit-background-clip: text; background-clip: text;
+  display: block; letter-spacing: 8rpx; margin-top: 8rpx;
+}
 
-/* ---- 入口卡片 ---- */
-.entrances { display: flex; gap: 20rpx; padding: 0 32rpx; margin-bottom: 48rpx; }
-.ent-card { flex: 1; padding: 44rpx 0 36rpx; border-radius: var(--radius-lg); text-align: center; transition: transform 0.15s; }
-.ent-card--pressed { transform: scale(0.96); }
-.write { background: linear-gradient(160deg, #F5EDE4 0%, #FDFAF7 100%); }
-.time  { background: linear-gradient(160deg, #EDF0E9 0%, #F9FBF7 100%); }
-.ent-icon { font-size: 52rpx; display: block; margin-bottom: 16rpx; }
-.ent-label { font-size: 28rpx; color: var(--c-text); font-weight: 600; }
+/* 入口 */
+.entrances { display: flex; gap: 16rpx; padding: 0 28rpx; margin-bottom: 44rpx; }
+.ent-card {
+  flex: 1; padding: 36rpx 0 30rpx; border-radius: var(--radius-lg);
+  text-align: center; transition: transform 0.15s;
+  background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end));
+  border: 1rpx solid var(--c-card-border);
+  box-shadow: 0 2rpx 12rpx rgba(74,48,40,0.04);
+}
+.ent-card--press { transform: scale(0.95); }
+.ent-icon { font-size: 48rpx; display: block; margin-bottom: 12rpx; }
+.ent-label { font-size: 28rpx; color: var(--c-text); font-weight: 700; }
 
-/* ---- 分区标题 ---- */
-.section-hd { display: flex; align-items: center; padding: 0 40rpx; margin-bottom: 28rpx; }
-.section-title { font-size: 30rpx; font-weight: 700; color: var(--c-text); white-space: nowrap; margin-right: 20rpx; }
-.section-line { flex: 1; height: 1rpx; background: linear-gradient(to right, var(--c-primary-soft), transparent); }
+/* 分区标题 */
+.section-hd { display: flex; align-items: center; padding: 0 48rpx; margin-bottom: 24rpx; }
+.section-line { flex: 1; height: 1rpx; background: linear-gradient(to right, transparent, var(--c-text-faint)); }
+.section-line:last-child { background: linear-gradient(to left, transparent, var(--c-text-faint)); }
+.section-title { font-size: 24rpx; color: var(--c-text-light); letter-spacing: 4rpx; padding: 0 20rpx; }
 
-/* ---- 骨架屏 ---- */
-.skeleton { padding: 0 24rpx; }
-.sk-item { height: 140rpx; background: linear-gradient(90deg, #f0ece8 25%, #f7f4f0 50%, #f0ece8 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius-md); margin-bottom: 20rpx; }
+/* 骨架 */
+.skeleton { padding: 0 20rpx; }
+.sk-item { height: 130rpx; border-radius: var(--radius-md); margin-bottom: 16rpx; animation: shimmer 1.6s infinite; background: linear-gradient(90deg, rgba(234,217,196,0.3) 0%, rgba(234,217,196,0.6) 50%, rgba(234,217,196,0.3) 100%); background-size: 200% 100%; }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* ---- 空状态 ---- */
-.empty-area { text-align: center; padding: 80rpx 0; }
-.empty-icon { font-size: 72rpx; display: block; margin-bottom: 20rpx; }
-.empty-title { font-size: 30rpx; color: var(--c-text); font-weight: 600; display: block; }
-.empty-hint { font-size: 26rpx; color: var(--c-text-faint); margin-top: 8rpx; display: block; }
+/* 空态 */
+.empty-area { text-align: center; padding: 60rpx 0; }
+.empty-icon { font-size: 64rpx; display: block; margin-bottom: 16rpx; }
+.empty-text { font-size: 28rpx; color: var(--c-text); font-weight: 600; display: block; }
+.empty-hint { font-size: 24rpx; color: var(--c-text-faint); margin-top: 6rpx; display: block; }
 
-/* ---- 日记卡片 ---- */
-.diary-card { margin: 0 24rpx 20rpx; padding: 32rpx; background: var(--c-card); border-radius: var(--radius-md); box-shadow: 0 1rpx 6rpx rgba(74,63,56,0.03); border: 1rpx solid rgba(0,0,0,0.03); transition: transform 0.12s; }
-.diary-card--pressed { transform: scale(0.985); }
-.dc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx; }
-.dc-date { font-size: 26rpx; color: var(--c-text-faint); }
-.dc-weather { font-size: 26rpx; }
-.dc-text { font-size: 28rpx; color: var(--c-text); line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.dc-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 20rpx; }
-.dc-tags { display: flex; gap: 12rpx; }
-.dc-tag { font-size: 22rpx; color: var(--c-primary); padding: 4rpx 16rpx; background: var(--c-primary-soft); border-radius: 20rpx; }
+/* 日记卡片 */
+.diary-card {
+  margin: 0 20rpx 16rpx; padding: 28rpx;
+  background: linear-gradient(135deg, var(--c-card-start), var(--c-card-end));
+  border: 1rpx solid var(--c-card-border); border-radius: var(--radius-md);
+  box-shadow: 0 1rpx 6rpx rgba(74,48,40,0.03);
+  transition: transform 0.12s;
+}
+.diary-card--press { transform: scale(0.985); }
+.dc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14rpx; }
+.dc-date { font-size: 24rpx; color: var(--c-text-light); letter-spacing: 2rpx; }
 .dc-mood { font-size: 36rpx; }
+.dc-text { font-size: 28rpx; color: var(--c-text); line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.dc-foot { display: flex; gap: 10rpx; margin-top: 18rpx; flex-wrap: wrap; }
+.dc-tag { font-size: 22rpx; color: var(--c-primary-end); background: var(--c-tag-bg); padding: 4rpx 16rpx; border-radius: 14rpx; font-weight: 600; }
 
-/* ---- 底部 ---- */
 .breath { height: 40rpx; }

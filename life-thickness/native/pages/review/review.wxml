@@ -1,9 +1,9 @@
 <view class="review-page">
   <text class="r-title">复盘报告</text>
 
-  <view class="r-gen" bindtap="generate" hover-class="r-gen--press">生成新复盘</view>
+  <view class="r-gen" bindtap="generate" hover-class="r-gen--press">· 生 成 新 复 盘 ·</view>
 
-  <view wx:if="{{loading}}" class="r-loading">正在回顾你的一周...</view>
+  <view wx:if="{{loading}}" class="r-loading">正在回顾你的一周 ~</view>
 
   <view wx:elif="{{!review}}" class="r-empty">
     <text class="empty-icon">📊</text>
@@ -13,12 +13,12 @@
   <view wx:else>
     <!-- 概览 -->
     <view class="r-card overview-card">
-      <text class="r-card-title">{{review.weekStart}} ~ {{review.weekEnd}}</text>
+      <text class="r-card-date">{{review.weekStart}} ~ {{review.weekEnd}}</text>
       <view class="r-grid">
         <view class="r-g-item"><text class="rg-num">{{review.overview.diaryCount}}</text><text class="rg-lab">日记篇</text></view>
         <view class="r-g-item"><text class="rg-num">{{review.overview.totalWords}}</text><text class="rg-lab">字</text></view>
         <view class="r-g-item"><text class="rg-num">{{review.overview.totalImages}}</text><text class="rg-lab">照片</text></view>
-        <view class="r-g-item"><text class="rg-num">{{review.overview.avgMood}}</text><text class="rg-lab">心情均分</text></view>
+        <view class="r-g-item"><text class="rg-num">{{review.overview.avgMood}}</text><text class="rg-lab">心情</text></view>
       </view>
     </view>
 
@@ -30,7 +30,7 @@
 
     <!-- 建议 -->
     <view class="r-card sug-card" wx:if="{{review.suggestions.length}}">
-      <text class="r-card-title">下周可以试着</text>
+      <text class="r-card-title">下周可以试着 ~</text>
       <view wx:for="{{review.suggestions}}" wx:key="*this" class="sug-item">
         <text class="sug-dot"></text>
         <text class="sug-text">{{item}}</text>
@@ -40,10 +40,10 @@
 
   <!-- 历史 -->
   <view class="r-history" wx:if="{{history.length > 1}}">
-    <text class="r-h-title">过往复盘</text>
+    <text class="r-h-title">· 过往复盘 ·</text>
     <view wx:for="{{history}}" wx:key="_id" class="r-h-item" bindtap="showReview" data-idx="{{index}}">
       <text class="rh-range">{{item.weekStart}} ~ {{item.weekEnd}}</text>
-      <text class="rh-stat">{{item.overview.diaryCount}}篇 · 心情{{item.overview.avgMood}}</text>
+      <text class="rh-stat">{{item.overview.diaryCount}}篇</text>
     </view>
   </view>
 </view>

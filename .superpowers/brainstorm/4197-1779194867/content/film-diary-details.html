@@ -1,0 +1,100 @@
+<h2>🎞️ 胶片日记 — 风格细化</h2>
+<p class="subtitle">选择你喜欢的色调深浅和字体风格</p>
+
+<div class="section">
+  <h3>配色深浅</h3>
+</div>
+
+<div class="cards">
+
+  <div class="card" data-choice="warm" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #FDF9F5; padding: 36px 24px; border-radius: 0;">
+      <div style="font-family: Georgia, serif; color: #5C4033;">
+        <div style="text-align: center; padding: 20px 0;">
+          <div style="font-size: 20px; font-weight: 700; letter-spacing: 6px;">人生厚度</div>
+          <div style="font-size: 11px; color: #B8A080; margin-top: 6px;">5月19日 · 星期一</div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+          <div style="flex:1; background: #FFF8F0; border: 1px solid #E8D5C0; border-radius: 16px; padding: 18px; text-align: center;">
+            <div style="font-size: 22px;">✏️</div><div style="font-size: 12px; color: #A08060;">写日记</div>
+          </div>
+          <div style="flex:1; background: #FFF8F0; border: 1px solid #E8D5C0; border-radius: 16px; padding: 18px; text-align: center;">
+            <div style="font-size: 22px;">⏳</div><div style="font-size: 12px; color: #A08060;">时光机</div>
+          </div>
+        </div>
+        <div style="background: #FFF; border: 1px solid #E8D5C0; border-radius: 12px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #C4A882;">
+            <span>☀️ 晴</span><span>📍 上海</span><span>😊</span>
+          </div>
+          <div style="font-size: 13px; line-height: 1.7; margin-top: 8px; color: #5C4033;">今天完成了季度汇报，和团队吃了火锅。</div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 11px; color: #B8A080; margin-top: 12px;">暖陶 — 温柔安静，像旧相册里的一页</div>
+    </div>
+    <div class="card-body">
+      <h3>🟤 暖陶 Warm Clay</h3>
+      <p>奶油底色 + 暖棕文字 + 浅金边框<br>像翻旧相册，温柔安静不做作</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="deep" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #F5F0E8; padding: 36px 24px; border-radius: 0;">
+      <div style="font-family: Georgia, serif; color: #3D2A1F;">
+        <div style="text-align: center; padding: 20px 0;">
+          <div style="font-size: 20px; font-weight: 700; letter-spacing: 6px; color: #4A3028;">人生厚度</div>
+          <div style="font-size: 11px; color: #8B6F5C; margin-top: 6px;">MAY 19 · MONDAY</div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+          <div style="flex:1; background: #4A3028; border-radius: 14px; padding: 18px; text-align: center; color: #E8D5C0;">
+            <div style="font-size: 22px;">✏️</div><div style="font-size: 12px; margin-top: 4px;">写日记</div>
+          </div>
+          <div style="flex:1; background: #E8D5C0; border-radius: 14px; padding: 18px; text-align: center; color: #4A3028;">
+            <div style="font-size: 22px;">⏳</div><div style="font-size: 12px; margin-top: 4px;">时光机</div>
+          </div>
+        </div>
+        <div style="background: #FFF; border: 1px solid #D4C0A8; border-radius: 12px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #8B6F5C;">
+            <span>☀️ 晴</span><span>📍 上海</span><span>😊</span>
+          </div>
+          <div style="font-size: 13px; line-height: 1.7; margin-top: 8px;">今天完成了季度汇报，和团队吃了火锅。</div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 11px; color: #6B5040; margin-top: 12px;">深咖 — 复古质感，像冲洗出来的胶片照片</div>
+    </div>
+    <div class="card-body">
+      <h3>🟫 深咖 Dark Roast</h3>
+      <p>米色底 + 深咖主色 + 明暗对比<br>像冲洗出来的老照片，复古有质感</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section">
+  <h3>页面关键元素</h3>
+  <p class="subtitle">胶片日记风格的特征元素</p>
+</div>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>🎨 设计特征</h4>
+    <ul>
+      <li>全局纸张纹理底色（CSS 噪点/渐变模拟）</li>
+      <li>圆角大卡片 + 极细边框 + 柔和阴影</li>
+      <li>衬线体标题（Georgia/宋体）+ 无衬线正文</li>
+      <li>心情用大号 emoji 而非文字</li>
+      <li>日期用英文缩写增强杂志感</li>
+      <li>分隔线用虚线或细线替代实色块</li>
+      <li>底部 TabBar 半透明毛玻璃</li>
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>📱 页面布局</h4>
+    <ul>
+      <li>首页：问候 + 日期 + 入口卡片 + 日记列表</li>
+      <li>写日记：顶部预览条 + 正文大框 + 工具条</li>
+      <li>复盘：日期范围标题 + 概览数字 + 寄语引用</li>
+      <li>详情：居中排版 + 留白 + 底部分隔操作</li>
+      <li>整体节奏：松—紧—松，有呼吸</li>
+    </ul>
+  </div>
+</div>

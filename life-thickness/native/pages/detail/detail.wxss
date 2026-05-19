@@ -1,15 +1,15 @@
-.detail-page { min-height: 100vh; background: var(--c-page); padding: 48rpx 32rpx 120rpx; }
-.d-hero { text-align: center; padding: 40rpx 0 36rpx; }
-.d-date { font-size: 34rpx; font-weight: 700; color: var(--c-text); display: block; }
-.d-meta { font-size: 26rpx; color: var(--c-text-faint); margin-top: 10rpx; display: block; }
-.d-loc { font-size: 26rpx; color: var(--c-primary); margin-top: 8rpx; display: block; }
+.detail-page { min-height: 100vh; padding: 48rpx 28rpx 120rpx; }
+.d-hero { text-align: center; padding: 36rpx 0; }
+.d-date { font-size: 32rpx; font-weight: 800; color: var(--c-text); display: block; letter-spacing: 3rpx; }
+.d-meta { font-size: 24rpx; color: var(--c-text-light); margin-top: 8rpx; display: block; }
+.d-loc { font-size: 24rpx; color: var(--c-primary-end); margin-top: 6rpx; display: block; font-weight: 600; }
 .d-body { max-width: 640rpx; margin: 0 auto; }
-.d-text { font-size: 34rpx; line-height: 2; color: var(--c-text); white-space: pre-wrap; }
-.d-images { max-width: 640rpx; margin: 32rpx auto; }
-.d-img { width: 100%; border-radius: var(--radius-sm); margin-bottom: 12rpx; }
-.d-tags { display: flex; flex-wrap: wrap; gap: 14rpx; justify-content: center; margin: 32rpx 0; }
-.d-tag { font-size: 26rpx; color: var(--c-primary); background: var(--c-primary-soft); padding: 8rpx 24rpx; border-radius: 24rpx; }
-.d-oneline { text-align: center; font-size: 30rpx; color: var(--c-text-light); font-style: italic; margin: 32rpx 0; }
-.d-actions { display: flex; gap: 24rpx; justify-content: center; margin-top: 60rpx; }
-.d-btn { padding: 22rpx 56rpx; border-radius: 48rpx; font-size: 30rpx; border: 2rpx solid var(--c-primary); color: var(--c-primary); }
+.d-text { font-size: 32rpx; line-height: 2.1; color: var(--c-text); white-space: pre-wrap; font-weight: 500; }
+.d-images { max-width: 640rpx; margin: 28rpx auto; }
+.d-img { width: 100%; border-radius: var(--radius-sm); margin-bottom: 10rpx; }
+.d-tags { display: flex; flex-wrap: wrap; gap: 12rpx; justify-content: center; margin: 28rpx 0; }
+.d-tag { font-size: 24rpx; color: var(--c-primary-end); background: var(--c-tag-bg); padding: 6rpx 22rpx; border-radius: 20rpx; font-weight: 600; }
+.d-oneline { text-align: center; font-size: 28rpx; color: var(--c-text-light); font-style: italic; margin: 28rpx 0; font-weight: 600; }
+.d-actions { display: flex; gap: 20rpx; justify-content: center; margin-top: 56rpx; }
+.d-btn { padding: 20rpx 52rpx; border-radius: 48rpx; font-size: 28rpx; font-weight: 600; border: 2rpx solid var(--c-primary-end); color: var(--c-primary-end); background: linear-gradient(135deg, var(--c-card-start), var(--c-card-end)); }
 .d-btn.del { border-color: var(--c-mood-1); color: var(--c-mood-1); }

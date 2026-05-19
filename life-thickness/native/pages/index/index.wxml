@@ -1,56 +1,53 @@
 <view class="home">
-  <!-- 顶部问候 -->
+  <!-- 顶部 -->
   <view class="hero">
     <text class="hero-date">{{greeting}}</text>
     <text class="hero-title">人生厚度</text>
-    <text class="hero-sub">每一个平凡的日子，都值得被看见</text>
   </view>
 
-  <!-- 入口卡片 -->
+  <!-- 入口 -->
   <view class="entrances">
-    <view class="ent-card write" bindtap="goWrite" hover-class="ent-card--pressed">
+    <view class="ent-card write" bindtap="goWrite" hover-class="ent-card--press">
       <text class="ent-icon">✏️</text>
       <text class="ent-label">写日记</text>
     </view>
-    <view class="ent-card time" bindtap="goTime" hover-class="ent-card--pressed">
+    <view class="ent-card time" bindtap="goTime" hover-class="ent-card--press">
       <text class="ent-icon">⏳</text>
       <text class="ent-label">时光机</text>
     </view>
   </view>
 
-  <!-- 分区标题 -->
+  <!-- 分区 -->
   <view class="section-hd">
-    <text class="section-title">最近记录</text>
-    <text class="section-line"></text>
+    <view class="section-line"></view>
+    <text class="section-title">· 最近记录 ·</text>
+    <view class="section-line"></view>
   </view>
 
-  <!-- 日记列表 -->
+  <!-- 骨架/空态 -->
   <view wx:if="{{loading}}" class="skeleton">
     <view wx:for="{{[1,2,3]}}" wx:key="*this" class="sk-item"></view>
   </view>
 
   <view wx:elif="{{diaries.length===0}}" class="empty-area">
     <text class="empty-icon">📖</text>
-    <text class="empty-title">还没有日记</text>
+    <text class="empty-text">还没有日记 ~</text>
     <text class="empty-hint">写下第一页吧</text>
   </view>
 
+  <!-- 日记列表 -->
   <view wx:else>
-    <view wx:for="{{diaries}}" wx:key="_id" class="diary-card" bindtap="goDetail" data-id="{{item._id}}" hover-class="diary-card--pressed">
+    <view wx:for="{{diaries}}" wx:key="_id" class="diary-card" bindtap="goDetail" data-id="{{item._id}}" hover-class="diary-card--press">
       <view class="dc-top">
         <text class="dc-date">{{item.date}}</text>
-        <view class="dc-weather">{{item.weather}}</view>
+        <text class="dc-mood">{{item.moodText}}</text>
       </view>
       <text class="dc-text">{{item.content}}</text>
-      <view class="dc-foot">
-        <view class="dc-tags" wx:if="{{item.tags.length}}">
-          <text wx:for="{{item.tags}}" wx:key="*this" wx:for-item="t" class="dc-tag">{{t}}</text>
-        </view>
-        <text class="dc-mood">{{item.moodText}}</text>
+      <view class="dc-foot" wx:if="{{item.tags.length}}">
+        <text wx:for="{{item.tags}}" wx:key="*this" wx:for-item="t" class="dc-tag">{{t}}</text>
       </view>
     </view>
   </view>
 
-  <!-- 底部呼吸空间 -->
   <view class="breath"></view>
 </view>

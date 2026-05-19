@@ -16,6 +16,7 @@ Page({
     autoFocus: false,
   },
   onLoad() { this.setData({ autoFocus: true }) },
+  toggleTags() { this.setData({ showTags: !this.data.showTags }) },
   onDate(e) { this.setData({ date: e.detail.value }) },
   setWeather(e) {
     const idx = e.currentTarget.dataset.idx

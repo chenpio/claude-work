@@ -1,42 +1,45 @@
-/* ===== 手记本美学 · 全局主题 ===== */
-/* 灵感: 午后阳光下的旧书桌，一杯茶，一本布面笔记本 */
+/* ===== 圆萌胶片 · 全局主题 ===== */
+/* 暖调渐变 + 圆体加粗 + 大圆角 + 可爱细节 */
 
 page {
-  --c-page: #F9F5F0;          /* 暖白底（略带纸色） */
-  --c-card: #FFFFFF;          /* 卡片白 */
-  --c-text: #4A3F38;          /* 正文棕 */
-  --c-text-light: #8C8279;    /* 辅助文字 */
-  --c-text-faint: #C4BBB3;    /* 更淡的文字 */
-  --c-primary: #A68B7C;       /* 暖陶色 */
-  --c-primary-soft: #E8DDD4;  /* 陶色淡底 */
-  --c-accent: #C4A882;        /* 金色点缀 */
-  --c-mood-1: #D4A0A0;        /* 心情色系 */
+  --c-bg-start: #FDF9F4;
+  --c-bg-end: #FAF4EC;
+  --c-card-start: #FFFDF9;
+  --c-card-end: #FFFAF3;
+  --c-card-border: #EAD9C4;
+  --c-text: #4A3028;
+  --c-text-soft: #6B4C3B;
+  --c-text-light: #B8977E;
+  --c-text-faint: #D4C0A8;
+  --c-primary-start: #6B4C3B;
+  --c-primary-end: #8B6914;
+  --c-primary-light: rgba(139,105,20,0.08);
+  --c-primary-glow: rgba(139,105,20,0.15);
+  --c-tag-bg: rgba(139,105,20,0.08);
+  --c-mood-1: #D4A0A0;
   --c-mood-2: #D4B896;
-  --c-mood-3: #C4BBB3;
+  --c-mood-3: #C8C0B8;
   --c-mood-4: #A8C4A0;
   --c-mood-5: #A0B8C4;
-  --c-green: #9BAF8E;         /* 鼠尾草绿 */
-  --c-green-soft: #E9EFE4;
-  --c-pink: #D4AFAF;          /* 干枯玫瑰 */
-  --c-pink-soft: #F5EBEB;
-  --c-gold: #D4C4A8;          /* 古金色 */
-  --c-gold-soft: #F7F2E8;
-  --radius-sm: 12rpx;
-  --radius-md: 20rpx;
-  --radius-lg: 28rpx;
+  --radius-sm: 14rpx;
+  --radius-md: 22rpx;
+  --radius-lg: 32rpx;
+  --font-main: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 
-  background: var(--c-page);
-  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, var(--c-bg-start) 0%, var(--c-bg-end) 100%);
+  font-family: var(--font-main);
   color: var(--c-text);
   font-size: 30rpx;
-  line-height: 1.7;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 1rpx;
 }
 
 .card {
-  background: var(--c-card);
+  background: linear-gradient(135deg, var(--c-card-start), var(--c-card-end));
+  border: 1rpx solid var(--c-card-border);
   border-radius: var(--radius-md);
-  padding: 32rpx;
-  margin: 0 24rpx 24rpx;
-  box-shadow: 0 1rpx 8rpx rgba(74,63,56,0.04), 0 4rpx 20rpx rgba(74,63,56,0.03);
+  padding: 28rpx;
+  margin: 0 20rpx 20rpx;
+  box-shadow: 0 1rpx 8rpx rgba(74,48,40,0.03), 0 4rpx 16rpx rgba(74,48,40,0.02);
 }
