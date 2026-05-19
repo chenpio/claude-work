@@ -1,7 +1,10 @@
-.profile-page { padding: 24rpx; min-height: 100vh; background: #FAF7F2; }
-.user-card { text-align: center; padding: 60rpx 0 40rpx; }
-.nickname { font-size: 36rpx; font-weight: 600; display: block; }
-.slogan { font-size: 26rpx; color: #9E9E9E; margin-top: 8rpx; display: block; }
-.menu { margin-top: 32rpx; }
-.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 36rpx 32rpx; background: #fff; border-radius: 16rpx; margin-bottom: 12rpx; font-size: 30rpx; }
-.arrow { color: #C4B5A5; }
+.profile-page { min-height: 100vh; background: var(--c-page); }
+.p-hero { text-align: center; padding: 80rpx 0 60rpx; }
+.p-name { font-size: 40rpx; font-weight: 800; display: block; color: var(--c-text); letter-spacing: 4rpx; }
+.p-desc { font-size: 26rpx; color: var(--c-text-faint); margin-top: 12rpx; display: block; font-style: italic; }
+.p-menu { padding: 0 24rpx; }
+.p-item { display: flex; align-items: center; gap: 20rpx; padding: 36rpx 28rpx; background: var(--c-card); border-radius: var(--radius-md); margin-bottom: 12rpx; box-shadow: 0 1rpx 4rpx rgba(74,63,56,0.02); transition: transform 0.12s; }
+.p-item--press { transform: scale(0.985); }
+.p-item-icon { font-size: 36rpx; }
+.p-item-text { flex: 1; font-size: 30rpx; color: var(--c-text); }
+.p-item-arrow { font-size: 28rpx; color: var(--c-text-faint); }

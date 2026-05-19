@@ -1,19 +1,28 @@
 <view class="detail-page" wx:if="{{diary}}">
-  <view class="header">
-    <text class="date">{{diary.date}}</text>
-    <text class="meta">{{diary.weather}} · {{diary.moodText}}</text>
-    <text class="meta" wx:if="{{diary.location.city}}">📍 {{diary.location.city}}</text>
+  <view class="d-hero">
+    <text class="d-date">{{diary.date}}</text>
+    <view class="d-meta">
+      <text>{{diary.weather}} · {{diary.moodText}}</text>
+    </view>
+    <text class="d-loc" wx:if="{{diary.location.city}}">📍 {{diary.location.city}}</text>
   </view>
-  <view class="card content">{{diary.content}}</view>
-  <view class="images" wx:if="{{diary.images && diary.images.length}}">
-    <image wx:for="{{diary.images}}" wx:key="fileId" src="{{item.url}}" mode="widthFix" class="img" bindtap="preview" data-idx="{{index}}" />
+
+  <view class="d-body">
+    <text class="d-text">{{diary.content}}</text>
   </view>
-  <view class="tags" wx:if="{{diary.tags.length}}">
-    <text wx:for="{{diary.tags}}" wx:key="*this" class="tag">#{{item}}</text>
+
+  <view class="d-images" wx:if="{{diary.images && diary.images.length}}">
+    <image wx:for="{{diary.images}}" wx:key="fileId" src="{{item.url}}" mode="widthFix" class="d-img" bindtap="preview" data-idx="{{index}}" />
   </view>
-  <view class="card oneline" wx:if="{{diary.oneLine}}">💬 {{diary.oneLine}}</view>
-  <view class="actions">
-    <view class="btn" bindtap="edit">编辑</view>
-    <view class="btn danger" bindtap="del">删除</view>
+
+  <view class="d-tags" wx:if="{{diary.tags.length}}">
+    <text wx:for="{{diary.tags}}" wx:key="*this" class="d-tag">{{item}}</text>
+  </view>
+
+  <view class="d-oneline" wx:if="{{diary.oneLine}}">" {{diary.oneLine}} "</view>
+
+  <view class="d-actions">
+    <view class="d-btn" bindtap="edit">编辑</view>
+    <view class="d-btn del" bindtap="del">删除</view>
   </view>
 </view>

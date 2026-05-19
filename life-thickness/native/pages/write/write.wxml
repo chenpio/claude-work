@@ -1,56 +1,59 @@
-<view class="write-page">
-  <view class="field">
-    <text class="label">日期</text>
+<scroll-view class="write-page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 日期+天气一行 -->
+  <view class="w-top-row">
     <picker mode="date" value="{{date}}" bindchange="onDate">
-      <text class="val">{{date}}</text>
+      <text class="w-date">{{date}}</text>
     </picker>
-  </view>
-  <view class="field">
-    <text class="label">天气</text>
-    <view class="opts">
-      <text wx:for="{{weatherList}}" wx:key="*this" class="opt {{item.selected ? 'sel' : ''}}" bindtap="setWeather" data-idx="{{index}}">{{item.label}}</text>
+    <view class="w-weathers">
+      <text wx:for="{{weatherList}}" wx:key="*this" class="w-weather {{item.selected ? 'sel' : ''}}" bindtap="setWeather" data-idx="{{index}}">{{item.label}}</text>
     </view>
   </view>
-  <view class="field">
-    <text class="label">心情</text>
-    <view class="moods">
-      <text wx:for="{{moodList}}" wx:key="v" class="mood {{item.selected ? 'sel' : ''}}" bindtap="setMood" data-idx="{{index}}">{{item.e}}</text>
+
+  <!-- 心情 -->
+  <view class="w-mood-row">
+    <text wx:for="{{moodList}}" wx:key="v" class="w-mood {{item.selected ? 'sel' : ''}}" bindtap="setMood" data-idx="{{index}}">
+      <text class="mood-emoji">{{item.e}}</text>
+    </text>
+  </view>
+
+  <!-- 正文 -->
+  <view class="w-content-box">
+    <textarea class="w-content" value="{{content}}" placeholder="今天发生了什么？" placeholder-style="color:#C4BBB3;font-style:italic;" bindinput="onContent" auto-height focus="{{autoFocus}}" />
+  </view>
+
+  <!-- 图片 -->
+  <view class="w-images" wx:if="{{images.length}}">
+    <view wx:for="{{images}}" wx:key="fileId" class="w-img-item">
+      <image src="{{item.url}}" mode="aspectFill" class="w-img" bindtap="previewImage" data-idx="{{index}}" />
+      <view class="w-img-del" bindtap="delImage" data-idx="{{index}}">✕</view>
     </view>
   </view>
-  <view class="field">
-    <text class="label">地点</text>
-    <view class="loc-row">
-      <input class="loc-input" value="{{location}}" placeholder="点击右侧获取" bindinput="onLocation" />
-      <view class="loc-btn" bindtap="getLocation">📍 定位</view>
+
+  <!-- 底部工具栏 -->
+  <view class="w-tools">
+    <view class="tool-item" bindtap="addImage">
+      <text class="tool-icon">📷</text>
+      <text class="tool-label">图片</text>
+    </view>
+    <view class="tool-item" bindtap="getLocation">
+      <text class="tool-icon">📍</text>
+      <text class="tool-label">{{location || '地点'}}</text>
+    </view>
+    <view class="tool-item">
+      <text class="tool-icon">🏷️</text>
+      <text class="tool-label">标签</text>
     </view>
   </view>
-  <view class="field">
-    <text class="label">正文</text>
-    <textarea class="content" value="{{content}}" placeholder="今天发生了什么？" bindinput="onContent" auto-height />
+
+  <!-- 标签展开区 -->
+  <view class="w-tags" wx:if="{{showTags}}">
+    <text wx:for="{{allTags}}" wx:key="*this" class="w-tag {{item.selected ? 'sel' : ''}}" bindtap="toggleTag" data-idx="{{index}}">{{item.label}}</text>
   </view>
-  <view class="field">
-    <text class="label">图片 ({{images.length}}/9)</text>
-    <view class="img-list">
-      <view wx:for="{{images}}" wx:key="fileId" class="img-item">
-        <image src="{{item.url}}" mode="aspectFill" class="img-thumb" bindtap="previewImage" data-idx="{{index}}" />
-        <view class="img-del" bindtap="delImage" data-idx="{{index}}">✕</view>
-      </view>
-      <view wx:if="{{images.length < 9}}" class="img-add" bindtap="addImage">
-        <text class="add-icon">+</text>
-      </view>
-    </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-area">
+    <view class="save-btn" bindtap="save" hover-class="save-btn--press">保存日记</view>
   </view>
-  <view class="field">
-    <text class="label">标签</text>
-    <view class="opts">
-      <text wx:for="{{allTags}}" wx:key="*this" class="opt {{item.selected ? 'sel' : ''}}" bindtap="toggleTag" data-idx="{{index}}">#{{item.label}}</text>
-    </view>
-  </view>
-  <view class="field">
-    <text class="label">一句话</text>
-    <input class="input" value="{{oneLine}}" placeholder="用一句话概括今天" bindinput="onOneLine" maxlength="50" />
-  </view>
-  <view class="bottom-bar">
-    <view class="save-btn" bindtap="save">保存日记</view>
-  </view>
-</view>
+
+  <view class="breath"></view>
+</scroll-view>

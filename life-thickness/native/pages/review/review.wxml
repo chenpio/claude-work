@@ -1,42 +1,49 @@
 <view class="review-page">
-  <text class="title">复盘报告</text>
+  <text class="r-title">复盘报告</text>
 
-  <view class="gen-bar">
-    <view class="gen-btn" bindtap="generate">生成本周复盘</view>
-  </view>
+  <view class="r-gen" bindtap="generate" hover-class="r-gen--press">生成新复盘</view>
 
-  <view wx:if="{{loading}}" class="status">加载中...</view>
+  <view wx:if="{{loading}}" class="r-loading">正在回顾你的一周...</view>
 
-  <view wx:elif="{{!review}}" class="empty">
-    <text class="empty-text">还未生成本周复盘</text>
+  <view wx:elif="{{!review}}" class="r-empty">
+    <text class="empty-icon">📊</text>
+    <text class="empty-text">写完本周日记后生成复盘</text>
   </view>
 
   <view wx:else>
-    <view class="card">
-      <text class="card-title">{{review.weekStart}} ~ {{review.weekEnd}} · 本周概览</text>
-      <view class="grid">
-        <view class="g-item"><text class="num">{{review.overview.diaryCount}}</text><text class="lab">日记篇数</text></view>
-        <view class="g-item"><text class="num">{{review.overview.totalWords}}</text><text class="lab">总字数</text></view>
-        <view class="g-item"><text class="num">{{review.overview.totalImages}}</text><text class="lab">图片数</text></view>
-        <view class="g-item"><text class="num">{{review.overview.avgMood}}</text><text class="lab">平均心情</text></view>
+    <!-- 概览 -->
+    <view class="r-card overview-card">
+      <text class="r-card-title">{{review.weekStart}} ~ {{review.weekEnd}}</text>
+      <view class="r-grid">
+        <view class="r-g-item"><text class="rg-num">{{review.overview.diaryCount}}</text><text class="rg-lab">日记篇</text></view>
+        <view class="r-g-item"><text class="rg-num">{{review.overview.totalWords}}</text><text class="rg-lab">字</text></view>
+        <view class="r-g-item"><text class="rg-num">{{review.overview.totalImages}}</text><text class="rg-lab">照片</text></view>
+        <view class="r-g-item"><text class="rg-num">{{review.overview.avgMood}}</text><text class="rg-lab">心情均分</text></view>
       </view>
     </view>
-    <view class="card">
-      <text class="card-title">给自己的话</text>
-      <text class="msg">{{review.message}}</text>
+
+    <!-- 寄语 -->
+    <view class="r-card quote-card" wx:if="{{review.message}}">
+      <text class="quote-mark">"</text>
+      <text class="quote-text">{{review.message}}</text>
     </view>
-    <view class="card" wx:if="{{review.suggestions.length}}">
-      <text class="card-title">下周建议</text>
-      <view wx:for="{{review.suggestions}}" wx:key="*this" class="sug">· {{item}}</view>
+
+    <!-- 建议 -->
+    <view class="r-card sug-card" wx:if="{{review.suggestions.length}}">
+      <text class="r-card-title">下周可以试着</text>
+      <view wx:for="{{review.suggestions}}" wx:key="*this" class="sug-item">
+        <text class="sug-dot"></text>
+        <text class="sug-text">{{item}}</text>
+      </view>
     </view>
   </view>
 
-  <!-- 历史记录 -->
-  <view class="history" wx:if="{{history.length}}">
-    <text class="h-title">历史复盘</text>
-    <view wx:for="{{history}}" wx:key="_id" class="card h-item" bindtap="showReview" data-idx="{{index}}">
-      <text class="h-range">{{item.weekStart}} ~ {{item.weekEnd}}</text>
-      <text class="h-stat">{{item.overview.diaryCount}}篇日记 · 心情 {{item.overview.avgMood}}</text>
+  <!-- 历史 -->
+  <view class="r-history" wx:if="{{history.length > 1}}">
+    <text class="r-h-title">过往复盘</text>
+    <view wx:for="{{history}}" wx:key="_id" class="r-h-item" bindtap="showReview" data-idx="{{index}}">
+      <text class="rh-range">{{item.weekStart}} ~ {{item.weekEnd}}</text>
+      <text class="rh-stat">{{item.overview.diaryCount}}篇 · 心情{{item.overview.avgMood}}</text>
     </view>
   </view>
 </view>

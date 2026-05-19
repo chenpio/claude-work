@@ -1,4 +1,4 @@
-const weatherLabels = ['☀️晴','🌧️雨','☁️阴','❄️雪','🌫️雾','⛅多云','⚡雷电']
+const weatherLabels = ['☀️','🌧️','☁️','❄️','🌫️','⛅','⚡']
 const moodList = [{v:1,e:'😔'},{v:2,e:'🙁'},{v:3,e:'😐'},{v:4,e:'😊'},{v:5,e:'🥳'}]
 const tagLabels = ['工作','家庭','旅行','灵感','美食','运动','情绪','学习']
 
@@ -7,12 +7,15 @@ Page({
     date: new Date().toISOString().split('T')[0],
     weatherList: weatherLabels.map((l,i) => ({ label: l, selected: i === 0 })),
     moodList: moodList.map((m,i) => ({ ...m, selected: i === 3 })),
-    location: '',
     content: '',
     images: [],
+    location: '',
     allTags: tagLabels.map(t => ({ label: t, selected: false })),
+    showTags: false,
     oneLine: '',
+    autoFocus: false,
   },
+  onLoad() { this.setData({ autoFocus: true }) },
   onDate(e) { this.setData({ date: e.detail.value }) },
   setWeather(e) {
     const idx = e.currentTarget.dataset.idx
@@ -25,8 +28,6 @@ Page({
     this.setData({ moodList: list })
   },
   onContent(e) { this.setData({ content: e.detail.value }) },
-  onOneLine(e) { this.setData({ oneLine: e.detail.value }) },
-  onLocation(e) { this.setData({ location: e.detail.value }) },
   toggleTag(e) {
     const idx = e.currentTarget.dataset.idx
     const list = [...this.data.allTags]
@@ -40,17 +41,16 @@ Page({
       type: 'wgs84',
       success: (res) => {
         const loc = [res.city, res.district].filter(Boolean).join('·')
-        this.setData({ location: this.data.location || loc })
-        if (!loc) wx.showToast({ title: '未获取到位置', icon: 'none' })
+        if (loc) this.setData({ location: loc })
+        else wx.showToast({ title: '未获取到位置', icon: 'none' })
       },
-      fail: () => wx.showToast({ title: '定位失败，请授权位置权限', icon: 'none' }),
+      fail: () => wx.showToast({ title: '请授权位置权限', icon: 'none' }),
     })
   },
   addImage() {
     const remain = 9 - this.data.images.length
     wx.chooseImage({
-      count: remain,
-      sizeType: ['compressed'],
+      count: remain, sizeType: ['compressed'],
       success: async (res) => {
         wx.showLoading({ title: '上传中...' })
         const newImages = [...this.data.images]
@@ -59,7 +59,7 @@ Page({
             const cloudPath = `diary-images/${Date.now()}_${Math.random().toString(36).slice(2)}.jpg`
             const upload = await wx.cloud.uploadFile({ cloudPath, filePath: path })
             newImages.push({ fileId: upload.fileID, url: upload.fileID })
-          } catch (e) { console.error('upload error:', e) }
+          } catch (e) {}
         }
         this.setData({ images: newImages.slice(0, 9) })
         wx.hideLoading()
@@ -78,14 +78,14 @@ Page({
   },
   async save() {
     if (!this.data.content.trim() && !this.data.images.length) {
-      wx.showToast({ title: '请写点东西或添加图片', icon: 'none' }); return
+      wx.showToast({ title: '写点什么吧', icon: 'none' }); return
     }
     wx.showLoading({ title: '保存中...' })
     try {
-      const weather = this.data.weatherList.find(w => w.selected)?.label || '☀️晴'
+      const weather = this.data.weatherList.find(w => w.selected)?.label || '☀️'
       const mood = this.data.moodList.find(m => m.selected)?.v || 4
       const tags = this.data.allTags.filter(t => t.selected).map(t => t.label)
-      const res = await wx.cloud.callFunction({ name: 'diary_create', data: {
+      await wx.cloud.callFunction({ name: 'diary_create', data: {
         formData: {
           date: this.data.date, weather, mood,
           location: { city: this.data.location, district: '', hidden: false },
@@ -98,7 +98,7 @@ Page({
       setTimeout(() => wx.switchTab({ url: '/pages/index/index' }), 800)
     } catch (err) {
       wx.hideLoading()
-      wx.showToast({ title: '保存失败: ' + (err.message || err.errMsg || '未知'), icon: 'none', duration: 3000 })
+      wx.showToast({ title: '保存失败', icon: 'none' })
     }
   },
 })
