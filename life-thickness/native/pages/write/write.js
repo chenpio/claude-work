@@ -39,27 +39,15 @@ Page({
   },
   getLocation() {
     var that = this
-    wx.getFuzzyLocation({
-      type: 'wgs84',
+    wx.chooseLocation({
       success: function (res) {
-        var loc = [res.city, res.district].filter(Boolean).join('·')
+        var loc = res.address || res.name || ''
         if (loc) that.setData({ location: loc })
         else wx.showToast({ title: '未获取到位置', icon: 'none' })
       },
-      fail: function (err) {
-        if (err.errMsg && err.errMsg.indexOf('auth deny') > -1) {
-          wx.showModal({
-            title: '需要位置权限',
-            content: '请在设置中允许访问位置信息，仅用于日记地点标注',
-            confirmText: '去设置',
-            success: function (r) {
-              if (r.confirm) wx.openSetting()
-            }
-          })
-        } else {
-          wx.showToast({ title: '定位失败，请稍后重试', icon: 'none' })
-        }
-      },
+      fail: function () {
+        wx.showToast({ title: '已取消', icon: 'none' })
+      }
     })
   },
   addImage() {
