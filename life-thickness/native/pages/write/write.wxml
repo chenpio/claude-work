@@ -18,8 +18,27 @@
     </view>
   </view>
   <view class="field">
+    <text class="label">地点</text>
+    <view class="loc-row">
+      <input class="loc-input" value="{{location}}" placeholder="点击右侧获取" bindinput="onLocation" />
+      <view class="loc-btn" bindtap="getLocation">📍 定位</view>
+    </view>
+  </view>
+  <view class="field">
     <text class="label">正文</text>
     <textarea class="content" value="{{content}}" placeholder="今天发生了什么？" bindinput="onContent" auto-height />
+  </view>
+  <view class="field">
+    <text class="label">图片 ({{images.length}}/9)</text>
+    <view class="img-list">
+      <view wx:for="{{images}}" wx:key="fileId" class="img-item">
+        <image src="{{item.url}}" mode="aspectFill" class="img-thumb" bindtap="previewImage" data-idx="{{index}}" />
+        <view class="img-del" bindtap="delImage" data-idx="{{index}}">✕</view>
+      </view>
+      <view wx:if="{{images.length < 9}}" class="img-add" bindtap="addImage">
+        <text class="add-icon">+</text>
+      </view>
+    </view>
   </view>
   <view class="field">
     <text class="label">标签</text>

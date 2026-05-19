@@ -2,8 +2,12 @@
   <view class="header">
     <text class="date">{{diary.date}}</text>
     <text class="meta">{{diary.weather}} · {{diary.moodText}}</text>
+    <text class="meta" wx:if="{{diary.location.city}}">📍 {{diary.location.city}}</text>
   </view>
   <view class="card content">{{diary.content}}</view>
+  <view class="images" wx:if="{{diary.images && diary.images.length}}">
+    <image wx:for="{{diary.images}}" wx:key="fileId" src="{{item.url}}" mode="widthFix" class="img" bindtap="preview" data-idx="{{index}}" />
+  </view>
   <view class="tags" wx:if="{{diary.tags.length}}">
     <text wx:for="{{diary.tags}}" wx:key="*this" class="tag">#{{item}}</text>
   </view>

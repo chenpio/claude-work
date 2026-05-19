@@ -11,6 +11,10 @@ Page({
     d.moodText = moodEmojis[d.mood] || '😐'
     this.setData({ diary: d })
   },
+  preview(e) {
+    const idx = e.currentTarget.dataset.idx
+    wx.previewImage({ current: this.data.diary.images[idx].url, urls: this.data.diary.images.map(i => i.url) })
+  },
   edit() { wx.navigateTo({ url: `/pages/write/write?id=${this.data.diary._id}` }) },
   async del() {
     const r = await new Promise(resolve => wx.showModal({ title: '确认删除', content: '确定删除这篇日记吗？', success: resolve }))
