@@ -1,0 +1,11 @@
+.detail-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.header { text-align: center; padding: 40rpx 0 24rpx; }
+.date { font-size: 36rpx; font-weight: 600; display: block; }
+.meta { font-size: 26rpx; color: #9E9E9E; margin-top: 12rpx; display: block; }
+.content { font-size: 32rpx; line-height: 1.8; white-space: pre-wrap; }
+.tags { display: flex; gap: 12rpx; margin: 24rpx; flex-wrap: wrap; }
+.tag { font-size: 26rpx; color: #8B7F6E; background: #F5F0E8; padding: 8rpx 20rpx; border-radius: 20rpx; }
+.oneline { margin-top: 24rpx; font-size: 30rpx; color: #8B7F6E; }
+.actions { display: flex; gap: 24rpx; justify-content: center; margin-top: 48rpx; padding-bottom: 48rpx; }
+.btn { padding: 20rpx 48rpx; border-radius: 48rpx; font-size: 30rpx; border: 2rpx solid #8B7F6E; color: #8B7F6E; }
+.btn.danger { border-color: #FF8A80; color: #FF8A80; }

@@ -1,0 +1,25 @@
+<view class="home">
+  <view class="header">
+    <text class="title">人生厚度</text>
+    <text class="sub">记录人生的长度，沉淀生活的厚度</text>
+  </view>
+  <view class="actions">
+    <view class="btn-write" bindtap="goWrite">写日记</view>
+    <view class="btn-time" bindtap="goTime">时光机</view>
+  </view>
+  <view class="list">
+    <text class="list-title">最近日记</text>
+    <view wx:if="{{loading}}" class="loading">加载中...</view>
+    <view wx:elif="{{diaries.length===0}}" class="empty">还没有日记，<text bindtap="goWrite">写第一篇</text></view>
+    <view wx:for="{{diaries}}" wx:key="_id" class="card diary-item" bindtap="goDetail" data-id="{{item._id}}">
+      <view class="diary-top">
+        <text class="diary-date">{{item.date}}</text>
+        <text class="diary-mood">{{item.moodText}}</text>
+      </view>
+      <text class="diary-text">{{item.content}}</text>
+      <view class="diary-tags" wx:if="{{item.tags.length}}">
+        <text wx:for="{{item.tags}}" wx:key="*this" wx:for-item="t" class="tag">#{{t}}</text>
+      </view>
+    </view>
+  </view>
+</view>

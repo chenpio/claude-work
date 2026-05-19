@@ -1,0 +1,17 @@
+.home { padding: 24rpx; min-height: 100vh; background: #FAF7F2; }
+.header { text-align: center; padding: 48rpx 0 36rpx; }
+.title { font-size: 44rpx; font-weight: 700; color: #3D3D3D; display: block; }
+.sub { font-size: 26rpx; color: #9E9E9E; margin-top: 12rpx; display: block; }
+.actions { display: flex; gap: 24rpx; margin-bottom: 40rpx; }
+.btn-write, .btn-time { flex:1; padding: 36rpx; border-radius: 24rpx; text-align: center; font-size: 28rpx; }
+.btn-write { background: #F5F0E8; color: #8B7F6E; }
+.btn-time { background: #FFF0F0; color: #E8B4B8; }
+.list-title { font-size: 32rpx; font-weight: 600; color: #3D3D3D; margin-bottom: 24rpx; display: block; }
+.loading, .empty { text-align: center; padding: 80rpx 0; font-size: 28rpx; color: #9E9E9E; }
+.diary-item { margin-bottom: 20rpx; }
+.diary-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx; }
+.diary-date { font-size: 28rpx; font-weight: 600; }
+.diary-mood { font-size: 36rpx; }
+.diary-text { font-size: 28rpx; color: #3D3D3D; line-height: 1.6; }
+.diary-tags { display: flex; gap: 8rpx; margin-top: 16rpx; }
+.tag { font-size: 24rpx; color: #8B7F6E; background: #F5F0E8; padding: 4rpx 16rpx; border-radius: 16rpx; }

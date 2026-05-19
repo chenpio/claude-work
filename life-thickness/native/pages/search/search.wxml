@@ -1,0 +1,13 @@
+<view class="search-page">
+  <view class="bar">
+    <input class="input" value="{{keyword}}" placeholder="搜索日记关键词..." bindinput="onInput" bindconfirm="search" />
+    <view class="btn" bindtap="search">搜索</view>
+  </view>
+  <view class="results" wx:if="{{searched}}">
+    <view wx:if="{{results.length===0}}" class="empty">未找到相关日记</view>
+    <view wx:for="{{results}}" wx:key="_id" class="card item" bindtap="go" data-id="{{item._id}}">
+      <text class="r-date">{{item.date}}</text>
+      <text class="r-text">{{item.content}}</text>
+    </view>
+  </view>
+</view>

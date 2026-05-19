@@ -1,0 +1,19 @@
+<view class="settings-page">
+  <text class="title">设置</text>
+  <view class="group">
+    <text class="g-title">提醒设置</text>
+    <view class="item"><text>写日记提醒</text><switch checked="{{settings.diaryRemind}}" bindchange="onSwitch" data-key="diaryRemind" color="#8B7F6E" /></view>
+    <view class="item" wx:if="{{settings.diaryRemind}}">
+      <text>提醒时间</text>
+      <picker mode="time" value="{{settings.diaryRemindTime}}" bindchange="onTime" data-key="diaryRemindTime">
+        <text class="val">{{settings.diaryRemindTime}}</text>
+      </picker>
+    </view>
+    <view class="item"><text>复盘提醒</text><switch checked="{{settings.reviewRemind}}" bindchange="onSwitch" data-key="reviewRemind" color="#8B7F6E" /></view>
+  </view>
+  <view class="group">
+    <text class="g-title">数据管理</text>
+    <view class="item" bindtap="doExport"><text>导出全部日记</text><text class="arrow">→</text></view>
+  </view>
+  <view class="save" bindtap="save">保存设置</view>
+</view>

@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/write/write",
+    "pages/detail/detail",
+    "pages/review/review",
+    "pages/timeline/timeline",
+    "pages/search/search",
+    "pages/settings/settings",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FAF7F2",
+    "navigationBarTitleText": "人生厚度",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FAF7F2"
+  },
+  "tabBar": {
+    "color": "#9E9E9E",
+    "selectedColor": "#8B7F6E",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "日记" },
+      { "pagePath": "pages/write/write", "text": "写日记" },
+      { "pagePath": "pages/review/review", "text": "复盘" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  }
+}

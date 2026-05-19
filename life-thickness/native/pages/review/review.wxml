@@ -1,0 +1,27 @@
+<view class="review-page">
+  <text class="title">复盘报告</text>
+  <view wx:if="{{loading}}" class="status">加载中...</view>
+  <view wx:elif="{{!review}}" class="empty">
+    <text class="empty-text">还未生成本周复盘</text>
+    <view class="gen-btn" bindtap="generate">生成本周复盘</view>
+  </view>
+  <view wx:else>
+    <view class="card">
+      <text class="card-title">本周概览</text>
+      <view class="grid">
+        <view class="g-item"><text class="num">{{review.overview.diaryCount}}</text><text class="lab">日记篇数</text></view>
+        <view class="g-item"><text class="num">{{review.overview.totalWords}}</text><text class="lab">总字数</text></view>
+        <view class="g-item"><text class="num">{{review.overview.totalImages}}</text><text class="lab">图片数</text></view>
+        <view class="g-item"><text class="num">{{review.overview.avgMood}}</text><text class="lab">平均心情</text></view>
+      </view>
+    </view>
+    <view class="card">
+      <text class="card-title">给自己的话</text>
+      <text class="msg">{{review.message}}</text>
+    </view>
+    <view class="card" wx:if="{{review.suggestions.length}}">
+      <text class="card-title">下周建议</text>
+      <view wx:for="{{review.suggestions}}" wx:key="*this" class="sug">· {{item}}</view>
+    </view>
+  </view>
+</view>

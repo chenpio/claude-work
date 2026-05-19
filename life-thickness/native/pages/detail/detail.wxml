@@ -1,0 +1,15 @@
+<view class="detail-page" wx:if="{{diary}}">
+  <view class="header">
+    <text class="date">{{diary.date}}</text>
+    <text class="meta">{{diary.weather}} · {{diary.moodText}}</text>
+  </view>
+  <view class="card content">{{diary.content}}</view>
+  <view class="tags" wx:if="{{diary.tags.length}}">
+    <text wx:for="{{diary.tags}}" wx:key="*this" class="tag">#{{item}}</text>
+  </view>
+  <view class="card oneline" wx:if="{{diary.oneLine}}">💬 {{diary.oneLine}}</view>
+  <view class="actions">
+    <view class="btn" bindtap="edit">编辑</view>
+    <view class="btn danger" bindtap="del">删除</view>
+  </view>
+</view>

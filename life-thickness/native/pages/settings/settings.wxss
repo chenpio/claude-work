@@ -1,0 +1,8 @@
+.settings-page { padding: 24rpx; min-height: 100vh; background: #FAF7F2; }
+.title { font-size: 40rpx; font-weight: 700; display: block; text-align: center; padding: 40rpx 0; }
+.group { margin-bottom: 32rpx; }
+.g-title { font-size: 28rpx; color: #9E9E9E; padding: 0 12rpx 16rpx; display: block; }
+.item { display: flex; justify-content: space-between; align-items: center; padding: 32rpx; background: #fff; border-bottom: 1rpx solid #F5F0E8; font-size: 30rpx; }
+.val { color: #8B7F6E; }
+.arrow { color: #C4B5A5; }
+.save { margin-top: 40rpx; text-align: center; padding: 24rpx; background: #8B7F6E; color: #fff; border-radius: 48rpx; font-size: 32rpx; }
