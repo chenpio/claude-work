@@ -98,8 +98,15 @@ Page({
         }
       }})
       wx.hideLoading()
-      wx.showToast({ title: '已保存', icon: 'success' })
-      setTimeout(() => wx.switchTab({ url: '/pages/index/index' }), 800)
+      wx.showToast({ title: '已保存 ~', icon: 'success' })
+      // 清空表单，留在当前页继续写
+      this.setData({
+        content: '', images: [], oneLine: '', location: '',
+        date: new Date().toISOString().split('T')[0],
+        allTags: tagLabels.map(function (t) { return { label: t, selected: false } }),
+        moodList: moodList.map(function (m, i) { return Object.assign({}, m, { selected: i === 3 }) }),
+        weatherList: weatherLabels.map(function (l, i) { return { label: l, selected: i === 0 } }),
+      })
     } catch (err) {
       wx.hideLoading()
       wx.showToast({ title: '保存失败', icon: 'none' })
