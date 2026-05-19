@@ -3,16 +3,15 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
 // DeepSeek API (OpenAI 兼容格式)
-const API_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com'
+const API_URL = 'https://api.deepseek.com'
 const API_KEY = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
-const API_MODEL = 'deepseek-chat'
 
 async function callAI(prompt) {
   const https = require('https')
   const url = new URL(`${API_URL}/v1/chat/completions`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
-      model: API_MODEL,
+      model: 'deepseek-chat',
       messages: [
         { role: 'system', content: '你是一个温柔有共情力的生活复盘助手。请只返回要求的JSON格式，不要markdown代码块，不要多余文字。' },
         { role: 'user', content: prompt }

@@ -2,7 +2,7 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-const API_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com'
+const API_URL = 'https://api.deepseek.com'
 const API_KEY = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
 
 async function callAI(messages) {
