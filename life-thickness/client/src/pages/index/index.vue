@@ -96,73 +96,42 @@ function openTimeMachine() {
 
 <style lang="scss" scoped>
 .home-page {
-  padding: 24px;
-  padding-top: 60px;
-  min-height: 100vh;
-  background: #FAF7F2;
+  padding: 24rpx; padding-top: 60rpx; min-height: 100vh; background: #FAF7F2;
 }
-
 .header {
-  text-align: center;
-  padding: 48px 0 36px;
-  &-title { font-size: 44px; font-weight: 700; color: #3D3D3D; display: block; }
-  &-sub { font-size: 26px; color: #9E9E9E; margin-top: 12px; }
+  text-align: center; padding: 48rpx 0 36rpx;
+  &-title { font-size: 44rpx; font-weight: 700; color: #3D3D3D; display: block; }
+  &-sub { font-size: 26rpx; color: #9E9E9E; margin-top: 12rpx; display: block; }
 }
-
 .quick-actions {
-  margin-bottom: 40px;
+  margin-bottom: 40rpx; display: flex;
   .action-btn {
-    flex: 1;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 36px;
-    border-radius: 24px;
-    margin: 0 12px;
-    background: #FFFFFF;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    .action-icon { font-size: 48px; margin-bottom: 12px; }
-    .action-text { font-size: 28px; color: #3D3D3D; font-weight: 500; }
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    padding: 36rpx; border-radius: 24rpx; margin: 0 12rpx;
+    background: #FFFFFF; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+    .action-icon { font-size: 48rpx; margin-bottom: 12rpx; }
+    .action-text { font-size: 28rpx; color: #3D3D3D; font-weight: 500; }
   }
-  .write-btn { background: linear-gradient(135deg, #F5F0E8, #FFFFFF); }
-  .time-machine-btn { background: linear-gradient(135deg, #FFF0F0, #FFFFFF); }
+  .write-btn { background: #F5F0E8; }
+  .time-machine-btn { background: #FFF0F0; }
 }
-
-.section-title {
-  font-size: 32px; font-weight: 600;
-  margin-bottom: 24px; color: #3D3D3D;
-}
-
+.section-title { font-size: 32rpx; font-weight: 600; margin-bottom: 24rpx; color: #3D3D3D; }
 .diary-card {
-  margin-bottom: 20px;
-  .card-header { margin-bottom: 16px; }
-  .card-date { font-size: 28px; font-weight: 600; }
-  .card-mood { font-size: 36px; }
-  .card-content {
-    font-size: 28px; line-height: 1.6;
-    color: #3D3D3D;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .card-images {
-    display: flex; gap: 8px; margin-top: 16px;
-    .card-thumb { width: 100px; height: 100px; border-radius: 8px; }
-  }
-  .card-footer { margin-top: 16px; }
-  .card-tags { display: flex; gap: 8px; }
-  .tag { font-size: 24px; color: #8B7F6E; background: #F5F0E8; padding: 4px 16px; border-radius: 16px; }
-  .card-weather { font-size: 26px; }
+  margin-bottom: 20rpx;
+  .card-header { margin-bottom: 16rpx; display: flex; align-items: center; justify-content: space-between; }
+  .card-date { font-size: 28rpx; font-weight: 600; }
+  .card-mood { font-size: 36rpx; }
+  .card-content { font-size: 28rpx; line-height: 1.6; color: #3D3D3D; overflow: hidden; }
+  .card-images { display: flex; gap: 8rpx; margin-top: 16rpx; }
+  .card-thumb { width: 100rpx; height: 100rpx; border-radius: 8rpx; }
+  .card-footer { margin-top: 16rpx; display: flex; align-items: center; justify-content: space-between; }
+  .card-tags { display: flex; gap: 8rpx; }
+  .tag { font-size: 24rpx; color: #8B7F6E; background: #F5F0E8; padding: 4rpx 16rpx; border-radius: 16rpx; }
+  .card-weather { font-size: 26rpx; }
 }
-
-.empty-state {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 80px 0;
-  .empty-icon { font-size: 80px; margin-bottom: 24px; }
-  .empty-text { font-size: 28px; color: #9E9E9E; }
-}
-
-.load-more {
-  text-align: center; padding: 32px;
-  .load-text { font-size: 28px; color: #8B7F6E; }
-}
+.empty-state { display: flex; flex-direction: column; align-items: center; padding: 80rpx 0; }
+.empty-icon { font-size: 80rpx; margin-bottom: 24rpx; }
+.empty-text { font-size: 28rpx; color: #9E9E9E; }
+.load-more { text-align: center; padding: 32rpx; }
+.load-text { font-size: 28rpx; color: #8B7F6E; }
 </style>

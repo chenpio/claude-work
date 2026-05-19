@@ -9,8 +9,8 @@
 
     <!-- 日期 -->
     <view class="field-row">
-      <text class="field-label">📅 日期</text>
-      <picker mode="date" :value="form.date" @change="onDateChange">
+      <text class="field-label">日期</text>
+      <picker mode="date" :value="formDate" @change="onDateChange">
         <text class="field-value">{{ displayDate }}</text>
       </picker>
     </view>
@@ -22,8 +22,8 @@
         <view
           v-for="w in weatherOptions"
           :key="w.value"
-          :class="['weather-item', { selected: form.weather === w.value }]"
-          @tap="form.weather = w.value"
+          :class="['weather-item', formWeather === w.value ? 'selected' : '']"
+          @tap="selectWeather(w.value)"
         >
           <text>{{ w.icon }}</text>
         </view>
@@ -32,12 +32,12 @@
 
     <!-- 地点 -->
     <view class="field-row">
-      <text class="field-label">📍 地点</text>
+      <text class="field-label">地点</text>
       <input
         class="field-input"
-        v-model="form.location.district"
+        :value="formLocation"
         placeholder="自动获取或手动输入"
-        placeholder-style="color:#C4B5A5"
+        @input="onLocationInput"
       />
     </view>
 
@@ -45,23 +45,22 @@
     <view class="content-area">
       <textarea
         class="content-input"
-        v-model="form.content"
+        :value="formContent"
         placeholder="今天发生了什么？"
-        placeholder-style="color:#C4B5A5;font-size:32px"
         auto-height
-        maxlength="-1"
+        @input="onContentInput"
       />
     </view>
 
     <!-- 图片 -->
-    <view class="field-row image-row">
-      <text class="field-label">🖼️ 图片</text>
+    <view class="field-row">
+      <text class="field-label">图片 ({{ formImages.length }}/9)</text>
       <view class="image-list">
-        <view v-for="(img, idx) in form.images" :key="idx" class="image-item" @tap="previewImage(idx)">
-          <image :src="img.url" mode="aspectFill" class="thumbnail" />
-          <view class="image-delete" @tap.stop="removeImage(idx)">✕</view>
+        <view v-for="(img, idx) in formImages" :key="idx" class="image-item">
+          <image :src="img.url" mode="aspectFill" class="thumbnail" @tap="previewImage(idx)" />
+          <view class="image-delete" @tap="removeImage(idx)">X</view>
         </view>
-        <view v-if="form.images.length < 9" class="add-image" @tap="chooseImage">
+        <view v-if="formImages.length < 9" class="add-image" @tap="chooseImage">
           <text class="add-icon">+</text>
         </view>
       </view>
@@ -69,20 +68,19 @@
 
     <!-- 标签 -->
     <view class="field-row">
-      <text class="field-label">🏷️ 标签</text>
+      <text class="field-label">标签</text>
       <view class="tag-options">
         <view
           v-for="t in presetTags"
           :key="t"
-          :class="['tag-item', { selected: form.tags.includes(t) }]"
+          :class="['tag-item', formTags.includes(t) ? 'selected' : '']"
           @tap="toggleTag(t)"
-        >
-          #{{ t }}
-        </view>
+        >#{{ t }}</view>
         <input
           class="tag-input"
-          v-model="customTag"
-          placeholder="自定义标签"
+          :value="customTag"
+          placeholder="自定义"
+          @input="onCustomTagInput"
           @confirm="addCustomTag"
         />
       </view>
@@ -90,13 +88,13 @@
 
     <!-- 心情 -->
     <view class="field-row">
-      <text class="field-label">💭 心情</text>
+      <text class="field-label">心情</text>
       <view class="mood-options">
         <view
           v-for="m in moodOptions"
           :key="m.value"
-          :class="['mood-item', { selected: form.mood === m.value }]"
-          @tap="form.mood = m.value"
+          :class="['mood-item', formMood === m.value ? 'selected' : '']"
+          @tap="selectMood(m.value)"
         >
           <text class="mood-emoji">{{ m.emoji }}</text>
           <text class="mood-label">{{ m.label }}</text>
@@ -111,22 +109,20 @@
         <view
           v-for="e in presetEmotionTags"
           :key="e"
-          :class="['emotion-item', { selected: form.emotionTags.includes(e) }]"
+          :class="['emotion-item', formEmotionTags.includes(e) ? 'selected' : '']"
           @tap="toggleEmotion(e)"
-        >
-          {{ e }}
-        </view>
+        >{{ e }}</view>
       </view>
     </view>
 
     <!-- 一句话 -->
     <view class="field-row">
-      <text class="field-label">✍️ 一句话</text>
+      <text class="field-label">一句话</text>
       <input
         class="field-input"
-        v-model="form.oneLine"
+        :value="formOneLine"
         placeholder="用一句话概括今天"
-        placeholder-style="color:#C4B5A5"
+        @input="onOneLineInput"
         maxlength="50"
       />
     </view>
@@ -134,9 +130,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import Taro from '@tarojs/taro'
-import { WEATHER_OPTIONS, MOOD_OPTIONS, DEFAULT_TAGS, DEFAULT_EMOTION_TAGS, ImageItem } from '@/utils/types'
+import { WEATHER_OPTIONS, MOOD_OPTIONS, DEFAULT_TAGS, DEFAULT_EMOTION_TAGS } from '@/utils/types'
 import { callCloud, formatDate } from '@/utils/cloud'
 import { saveDraft, loadDraft, clearDraft } from '@/utils/storage'
 
@@ -144,104 +140,120 @@ const weatherOptions = WEATHER_OPTIONS
 const moodOptions = MOOD_OPTIONS
 const presetTags = DEFAULT_TAGS
 const presetEmotionTags = DEFAULT_EMOTION_TAGS
+
+// 使用 ref 代替 reactive，更兼容小程序
+const formDate = ref('')
+const formWeather = ref('晴')
+const formCity = ref('')
+const formDistrict = ref('')
+const formLocationHidden = ref(false)
+const formContent = ref('')
+const formImages = ref<{fileId: string; url: string; order: number}[]>([])
+const formTags = ref<string[]>([])
+const formMood = ref(4)
+const formEmotionTags = ref<string[]>([])
+const formOneLine = ref('')
 const customTag = ref('')
 
-const form = reactive({
-  date: '',
-  weather: '晴',
-  location: { city: '', district: '', hidden: false },
-  content: '',
-  images: [] as ImageItem[],
-  tags: [] as string[],
-  mood: 4,
-  emotionTags: [] as string[],
-  oneLine: '',
-})
-
-const displayDate = computed(() => formatDate(form.date))
+const displayDate = computed(() => formatDate(formDate.value))
 
 onMounted(async () => {
-  // 设置默认日期为今天
   const today = new Date().toISOString().split('T')[0]
-  form.date = today
-
-  // 获取地理位置
+  formDate.value = today
   try {
     const loc = await Taro.getFuzzyLocation({ type: 'wgs84' })
-    form.location.city = loc.city || ''
-  } catch { /* 用户拒绝定位 */ }
-
-  // 恢复草稿
+    formCity.value = loc.city || ''
+  } catch { /* 用户拒绝 */ }
   const draft = loadDraft()
   if (draft) {
     const confirmed = await Taro.showModal({ title: '恢复草稿', content: '检测到未保存的草稿，是否恢复？' })
     if (confirmed.confirm) {
-      Object.assign(form, draft)
+      const d = draft as Record<string, unknown>
+      formDate.value = (d.date as string) || formDate.value
+      formWeather.value = (d.weather as string) || '晴'
+      formDistrict.value = (d.location as Record<string,string>)?.district || ''
+      formContent.value = (d.content as string) || ''
+      formImages.value = (d.images as typeof formImages.value) || []
+      formTags.value = (d.tags as string[]) || []
+      formMood.value = (d.mood as number) || 4
+      formEmotionTags.value = (d.emotionTags as string[]) || []
+      formOneLine.value = (d.oneLine as string) || ''
     }
   }
 })
 
-function onDateChange(e: { detail: { value: string } }) {
-  form.date = e.detail.value
+function getFormData() {
+  return {
+    date: formDate.value,
+    weather: formWeather.value,
+    location: { city: formCity.value, district: formDistrict.value, hidden: formLocationHidden.value },
+    content: formContent.value,
+    images: formImages.value,
+    tags: formTags.value,
+    mood: formMood.value,
+    emotionTags: formEmotionTags.value,
+    oneLine: formOneLine.value,
+  }
 }
 
+function onDateChange(e: { detail: { value: string } }) { formDate.value = e.detail.value }
+function selectWeather(v: string) { formWeather.value = v }
+function selectMood(v: number) { formMood.value = v }
+function onLocationInput(e: { detail: { value: string } }) { formDistrict.value = e.detail.value }
+function onContentInput(e: { detail: { value: string } }) { formContent.value = e.detail.value }
+function onOneLineInput(e: { detail: { value: string } }) { formOneLine.value = e.detail.value }
+function onCustomTagInput(e: { detail: { value: string } }) { customTag.value = e.detail.value }
+
 function toggleTag(tag: string) {
-  const idx = form.tags.indexOf(tag)
-  if (idx > -1) form.tags.splice(idx, 1)
-  else if (form.tags.length < 5) form.tags.push(tag)
+  const idx = formTags.value.indexOf(tag)
+  if (idx > -1) formTags.value.splice(idx, 1)
+  else if (formTags.value.length < 5) formTags.value.push(tag)
 }
 
 function addCustomTag() {
   const name = customTag.value.trim()
-  if (name && !form.tags.includes(name) && form.tags.length < 5) {
-    form.tags.push(name)
+  if (name && !formTags.value.includes(name) && formTags.value.length < 5) {
+    formTags.value.push(name)
     customTag.value = ''
   }
 }
 
 function toggleEmotion(e: string) {
-  const idx = form.emotionTags.indexOf(e)
-  if (idx > -1) form.emotionTags.splice(idx, 1)
-  else form.emotionTags.push(e)
+  const idx = formEmotionTags.value.indexOf(e)
+  if (idx > -1) formEmotionTags.value.splice(idx, 1)
+  else formEmotionTags.value.push(e)
 }
 
 async function chooseImage() {
-  const res = await Taro.chooseImage({ count: 9 - form.images.length, sizeType: ['compressed'] })
-  // 上传到云存储
+  const res = await Taro.chooseImage({ count: 9 - formImages.value.length, sizeType: ['compressed'] })
   for (const path of res.tempFilePaths) {
     const cloudPath = `images/${Date.now()}_${Math.random().toString(36).slice(2)}.jpg`
     const upload = await Taro.cloud.uploadFile({ cloudPath, filePath: path })
-    form.images.push({ fileId: upload.fileID, url: upload.fileID, order: form.images.length })
+    formImages.value.push({ fileId: upload.fileID, url: upload.fileID, order: formImages.value.length })
   }
 }
 
 function previewImage(idx: number) {
-  Taro.previewImage({
-    current: form.images[idx].url,
-    urls: form.images.map((i) => i.url),
-  })
+  Taro.previewImage({ current: formImages.value[idx].url, urls: formImages.value.map((i) => i.url) })
 }
 
-function removeImage(idx: number) {
-  form.images.splice(idx, 1)
-}
+function removeImage(idx: number) { formImages.value.splice(idx, 1) }
 
 function handleCancel() {
-  // 自动保存草稿
-  if (form.content || form.images.length || form.tags.length) {
-    saveDraft({ ...form })
+  if (formContent.value || formImages.value.length || formTags.value.length) {
+    saveDraft(getFormData())
   }
   Taro.navigateBack()
 }
 
 async function handleSave() {
-  if (!form.content.trim() && !form.images.length) {
+  if (!formContent.value.trim() && !formImages.value.length) {
     Taro.showToast({ title: '请写下一点东西', icon: 'none' })
     return
   }
   Taro.showLoading({ title: '保存中...' })
   try {
-    await callCloud('diary_create', { formData: { ...form } })
+    await callCloud('diary_create', { formData: getFormData() })
     clearDraft()
     Taro.hideLoading()
     Taro.showToast({ title: '已保存', icon: 'success' })
@@ -254,135 +266,57 @@ async function handleSave() {
 </script>
 
 <style lang="scss" scoped>
-.write-page {
-  padding: 24px;
-  padding-top: 100px;
-  min-height: 100vh;
-  background: #FAF7F2;
-}
-
+.write-page { padding: 24rpx; padding-top: 100rpx; min-height: 100vh; background: #FAF7F2; }
 .toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 24px 32px;
-  background: rgba(250, 247, 242, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 100;
-  border-bottom: 1px solid #ECECEC;
-
-  &-title { font-size: 34px; font-weight: 600; }
-  &-btn { font-size: 30px; color: #9E9E9E; }
+  position: fixed; top: 0; left: 0; right: 0; padding: 24rpx 32rpx;
+  background: rgba(250,247,242,0.95); z-index: 100; border-bottom: 1rpx solid #ECECEC;
+  display: flex; align-items: center; justify-content: space-between;
+  &-title { font-size: 34rpx; font-weight: 600; }
+  &-btn { font-size: 30rpx; color: #9E9E9E; padding: 8rpx 16rpx; }
   &-btn.primary { color: #8B7F6E; font-weight: 600; }
 }
-
-.field-row {
-  margin-bottom: 36px;
+.field-row { margin-bottom: 36rpx; }
+.field-label { display: block; font-size: 28rpx; font-weight: 500; margin-bottom: 16rpx; color: #3D3D3D; }
+.field-value { font-size: 30rpx; color: #8B7F6E; border-bottom: 2rpx dashed #C4B5A5; padding: 8rpx 0; display: inline-block; }
+.field-input { width: 100%; height: 72rpx; font-size: 30rpx; border-bottom: 2rpx solid #ECECEC; padding: 8rpx 0; }
+.weather-options { display: flex; gap: 20rpx; }
+.weather-item {
+  width: 64rpx; height: 64rpx; display: flex; align-items: center; justify-content: center;
+  font-size: 36rpx; border-radius: 50%; border: 2rpx solid transparent;
+  &.selected { border-color: #8B7F6E; background: #F5F0E8; }
 }
-
-.field-label {
-  display: block;
-  font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 16px;
-  color: #3D3D3D;
+.content-area { margin-bottom: 36rpx; }
+.content-input { width: 100%; min-height: 300rpx; font-size: 32rpx; line-height: 1.8; color: #3D3D3D; }
+.image-list { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.image-item { position: relative; }
+.thumbnail { width: 160rpx; height: 160rpx; border-radius: 12rpx; }
+.image-delete {
+  position: absolute; top: -8rpx; right: -8rpx; width: 40rpx; height: 40rpx;
+  background: rgba(0,0,0,0.5); color: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 20rpx;
 }
-
-.field-value {
-  font-size: 30px;
-  color: #8B7F6E;
-  border-bottom: 2px dashed #C4B5A5;
-  padding: 8px 0;
+.add-image {
+  width: 160rpx; height: 160rpx; border: 2rpx dashed #C4B5A5; border-radius: 12rpx;
+  display: flex; align-items: center; justify-content: center;
+  .add-icon { font-size: 48rpx; color: #C4B5A5; }
 }
-
-.field-input {
-  width: 100%;
-  height: 72px;
-  font-size: 30px;
-  border-bottom: 2px solid #ECECEC;
-  padding: 8px 0;
+.tag-options { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.tag-item {
+  padding: 12rpx 24rpx; border-radius: 32rpx; font-size: 26rpx; background: #F5F0E8; color: #8B7F6E;
+  &.selected { background: #8B7F6E; color: #fff; }
 }
-
-.weather-options {
-  display: flex; gap: 20px;
-  .weather-item {
-    width: 64px; height: 64px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    &.selected { border-color: #8B7F6E; background: #F5F0E8; }
-  }
+.tag-input { width: 180rpx; height: 56rpx; font-size: 26rpx; padding: 0 16rpx; border: 1rpx solid #C4B5A5; border-radius: 32rpx; }
+.mood-options { display: flex; justify-content: space-between; }
+.mood-item {
+  display: flex; flex-direction: column; align-items: center; gap: 8rpx;
+  padding: 16rpx 20rpx; border-radius: 16rpx; border: 2rpx solid transparent;
+  &.selected { border-color: #8B7F6E; background: #F5F0E8; }
+  .mood-emoji { font-size: 40rpx; }
+  .mood-label { font-size: 22rpx; color: #9E9E9E; }
 }
-
-.content-area { margin-bottom: 36px; }
-.content-input {
-  width: 100%;
-  min-height: 300px;
-  font-size: 32px;
-  line-height: 1.8;
-  color: #3D3D3D;
-}
-
-.image-row { .field-label { margin-bottom: 16px; } }
-.image-list {
-  display: flex; flex-wrap: wrap; gap: 16px;
-  .image-item { position: relative; }
-  .thumbnail { width: 160px; height: 160px; border-radius: 12px; }
-  .image-delete {
-    position: absolute; top: -8px; right: -8px;
-    width: 40px; height: 40px;
-    background: rgba(0,0,0,0.5); color: #fff;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-  }
-  .add-image {
-    width: 160px; height: 160px;
-    border: 2px dashed #C4B5A5; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    .add-icon { font-size: 48px; color: #C4B5A5; }
-  }
-}
-
-.tag-options {
-  display: flex; flex-wrap: wrap; gap: 16px;
-  .tag-item {
-    padding: 12px 24px;
-    border-radius: 32px;
-    font-size: 26px;
-    background: #F5F0E8; color: #8B7F6E;
-    &.selected { background: #8B7F6E; color: #fff; }
-  }
-  .tag-input {
-    width: 180px; height: 56px;
-    font-size: 26px;
-    padding: 0 16px;
-    border: 1px solid #C4B5A5; border-radius: 32px;
-  }
-}
-
-.mood-options {
-  display: flex; justify-content: space-between;
-  .mood-item {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    padding: 16px 20px; border-radius: 16px;
-    border: 2px solid transparent;
-    &.selected { border-color: #8B7F6E; background: #F5F0E8; }
-    .mood-emoji { font-size: 40px; }
-    .mood-label { font-size: 22px; color: #9E9E9E; }
-  }
-}
-
-.emotion-options {
-  display: flex; flex-wrap: wrap; gap: 16px;
-  .emotion-item {
-    padding: 12px 24px;
-    border-radius: 32px;
-    font-size: 26px;
-    background: #F5F0E8; color: #8B7F6E;
-    &.selected { background: #8B7F6E; color: #fff; }
-  }
+.emotion-options { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.emotion-item {
+  padding: 12rpx 24rpx; border-radius: 32rpx; font-size: 26rpx; background: #F5F0E8; color: #8B7F6E;
+  &.selected { background: #8B7F6E; color: #fff; }
 }
 </style>

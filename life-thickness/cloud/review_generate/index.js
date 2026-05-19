@@ -3,24 +3,30 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
 // DeepSeek API 调用
+const ANTHROPIC_BASE_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com/anthropic'
+const ANTHROPIC_AUTH_TOKEN = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]'
+
 async function callAI(prompt) {
   const https = require('https')
+  const url = new URL(`${ANTHROPIC_BASE_URL}/messages`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
-      model: process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]',
+      model: ANTHROPIC_MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.8,
       max_tokens: 4096,
     })
     const req = https.request(
-      `${process.env.ANTHROPIC_BASE_URL}/messages`,
+      url.href,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.ANTHROPIC_AUTH_TOKEN}`,
+          'Authorization': `Bearer ${ANTHROPIC_AUTH_TOKEN}`,
           'anthropic-version': '2023-06-01',
         },
+        timeout: 30000,
       },
       (res) => {
         let body = ''
@@ -28,12 +34,15 @@ async function callAI(prompt) {
         res.on('end', () => {
           try {
             const result = JSON.parse(body)
-            resolve(result.content?.[0]?.text || result.choices?.[0]?.message?.content || '')
-          } catch { resolve('') }
+            const text = result.content?.[0]?.text || result.choices?.[0]?.message?.content || ''
+            if (!text) throw new Error('API返回空: ' + body.slice(0, 200))
+            resolve(text)
+          } catch (e) { reject(new Error('解析失败: ' + body.slice(0, 300))) }
         })
       },
     )
     req.on('error', reject)
+    req.on('timeout', () => { req.destroy(); reject(new Error('请求超时')) })
     req.write(data)
     req.end()
   })
