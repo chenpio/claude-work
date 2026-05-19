@@ -9,6 +9,10 @@
     "pages/settings/settings",
     "pages/profile/profile"
   ],
+  "permission": {
+    "scope.userFuzzyLocation": { "desc": "用于日记地点标注，仅模糊到城市级别" }
+  },
+  "requiredPrivateInfos": ["getFuzzyLocation"],
   "window": {
     "navigationBarBackgroundColor": "#FAF7F2",
     "navigationBarTitleText": "人生厚度",
