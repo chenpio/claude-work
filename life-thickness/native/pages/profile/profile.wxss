@@ -1,37 +1,15 @@
 .profile-page { min-height: 100vh; padding-bottom: 40rpx; }
 
-/* 已授权头像区 */
-.p-hero { text-align: center; padding: 64rpx 0 36rpx; }
-.p-avatar { width: 140rpx; height: 140rpx; border-radius: 50%; border: 3rpx solid var(--c-card-border); }
-.p-avatar-empty { width: 140rpx; height: 140rpx; margin: 0 auto; border-radius: 50%; background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end)); border: 3rpx solid var(--c-card-border); display: flex; align-items: center; justify-content: center; font-size: 56rpx; }
-.p-nick { font-size: 36rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; margin-top: 16rpx; }
-.p-slogan { font-size: 24rpx; color: var(--c-text-faint); margin-top: 8rpx; display: block; letter-spacing: 2rpx; }
-
-/* 一键授权区 */
-.onekey-btn {
-  width: 520rpx; padding: 32rpx 0; margin: 0 auto;
-  background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end));
-  border-radius: 56rpx; border: none; display: flex; flex-direction: column; align-items: center; gap: 12rpx;
-  box-shadow: 0 6rpx 24rpx rgba(139,105,20,0.25);
-}
-.onekey-btn::after { border: none; }
-.onekey-icon { font-size: 44rpx; display: block; }
-.onekey-text { font-size: 30rpx; font-weight: 700; color: #FFFBF5; letter-spacing: 4rpx; }
-
-.wx-nick-input {
-  width: 520rpx; height: 80rpx; margin: 24rpx auto 0;
-  background: linear-gradient(160deg, var(--c-card-start), var(--c-card-end));
-  border: 1rpx solid var(--c-card-border); border-radius: 40rpx; padding: 0 24rpx;
-  font-size: 28rpx; text-align: center; box-sizing: border-box;
-}
-
-.auth-hint { font-size: 22rpx; color: var(--c-text-faint); display: block; text-align: center; margin-top: 16rpx; }
-.big { width: 180rpx; height: 180rpx; font-size: 72rpx; }
+/* 头像昵称（微信原生自动显示） */
+.p-hero { text-align: center; padding: 64rpx 0 20rpx; }
+.p-avatar-open { display: block; width: 140rpx; height: 140rpx; margin: 0 auto; border-radius: 50%; overflow: hidden; border: 3rpx solid var(--c-card-border); }
+.p-nick-open { display: block; font-size: 36rpx; font-weight: 800; margin-top: 18rpx; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.p-slogan { font-size: 24rpx; color: var(--c-text-faint); margin-top: 10rpx; display: block; letter-spacing: 2rpx; }
 
 /* 统计 */
-.p-stats { display: flex; justify-content: center; align-items: center; gap: 56rpx; padding: 0 0 36rpx; }
+.p-stats { display: flex; justify-content: center; align-items: center; gap: 56rpx; padding: 20rpx 0 36rpx; }
 .p-stat-item { text-align: center; }
-.ps-num { font-size: 40rpx; font-weight: 800; display: block; color: transparent; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; }
+.ps-num { font-size: 40rpx; font-weight: 800; display: block; background: linear-gradient(135deg, var(--c-primary-start), var(--c-primary-end)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ps-lab { font-size: 22rpx; color: var(--c-text-faint); margin-top: 4rpx; display: block; }
 .p-stat-split { width: 1rpx; height: 40rpx; background: var(--c-card-border); }
 

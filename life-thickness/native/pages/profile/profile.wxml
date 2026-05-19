@@ -1,34 +1,16 @@
 <view class="profile-page">
   <view class="p-hero">
-    <!-- 已登录 -->
-    <block wx:if="{{hasProfile}}">
-      <image wx:if="{{avatarUrl}}" class="p-avatar" src="{{avatarUrl}}" mode="aspectFill" />
-      <view wx:else class="p-avatar-empty">👤</view>
-      <text class="p-nick">{{nickName || '人生厚度'}}</text>
-      <text class="p-slogan">记录人生的长度，沉淀生活的厚度</text>
-    </block>
+    <!-- 微信原生头像（无需授权直接显示） -->
+    <open-data class="p-avatar-open" type="userAvatarUrl" />
+    <!-- 微信原生昵称 -->
+    <open-data class="p-nick-open" type="userNickName" />
 
-    <!-- 未登录：一键授权 -->
-    <block wx:else>
-      <view class="p-avatar-empty big">📖</view>
-      <text class="p-slogan" style="margin-bottom:32rpx;">记录人生的长度，沉淀生活的厚度</text>
-      <button class="onekey-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-        <text class="onekey-icon">{{tempAvatarUrl ? '✅' : '👤'}}</text>
-        <text class="onekey-text">{{tempAvatarUrl ? '已选择头像，点击换一张' : '微信一键登录'}}</text>
-      </button>
-      <input
-        wx:if="{{tempAvatarUrl}}"
-        class="wx-nick-input"
-        type="nickname"
-        placeholder="微信昵称（点击自动填入）"
-        bindinput="onNickInput"
-        bindconfirm="saveProfile"
-      />
-      <text wx:if="{{tempAvatarUrl}}" class="auth-hint">👆 点击昵称框自动填入微信名，然后点键盘确认键</text>
-    </block>
+    <!-- 保存过的资料（优先显示） -->
+    <text wx:if="{{savedNickName}}" class="p-slogan">记录人生的长度，沉淀生活的厚度</text>
+    <text wx:else class="p-slogan">👆 点击上方可更换头像和昵称</text>
   </view>
 
-  <view class="p-stats" wx:if="{{hasProfile}}">
+  <view class="p-stats">
     <view class="p-stat-item"><text class="ps-num">{{diaryCount}}</text><text class="ps-lab">日记</text></view>
     <view class="p-stat-split"></view>
     <view class="p-stat-item"><text class="ps-num">{{reviewCount}}</text><text class="ps-lab">复盘</text></view>
