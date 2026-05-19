@@ -2,16 +2,15 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-const ANTHROPIC_BASE_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com/anthropic'
-const ANTHROPIC_AUTH_TOKEN = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]'
+const API_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com'
+const API_KEY = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
 
 async function callAI(messages) {
   const https = require('https')
-  const url = new URL(`${ANTHROPIC_BASE_URL}/v1/messages`)
+  const url = new URL(`${API_URL}/v1/chat/completions`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
-      model: ANTHROPIC_MODEL,
+      model: 'deepseek-chat',
       messages,
       temperature: 0.8,
       max_tokens: 2048,
@@ -22,10 +21,9 @@ async function callAI(messages) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ANTHROPIC_AUTH_TOKEN}`,
-          'anthropic-version': '2023-06-01',
+          'Authorization': `Bearer ${API_KEY}`,
         },
-        timeout: 30000,
+        timeout: 60000,
       },
       (res) => {
         let body = ''
@@ -33,15 +31,16 @@ async function callAI(messages) {
         res.on('end', () => {
           try {
             const result = JSON.parse(body)
-            const text = result.content?.[0]?.text || result.choices?.[0]?.message?.content || ''
-            if (!text) throw new Error('空响应: ' + body.slice(0, 200))
+            if (result.error) { reject(new Error(result.error.message || JSON.stringify(result.error))); return }
+            const text = result.choices?.[0]?.message?.content || ''
+            if (!text) { reject(new Error('API返回空: ' + body.slice(0, 200))); return }
             resolve(text)
-          } catch (e) { reject(new Error('解析失败: ' + body.slice(0, 300))) }
+          } catch (e) { reject(new Error('解析失败: ' + (e.message || '') + ' body:' + body.slice(0, 300))) }
         })
       },
     )
-    req.on('error', reject)
-    req.on('timeout', () => { req.destroy(); reject(new Error('请求超时')) })
+    req.on('error', (e) => reject(new Error('网络错误: ' + e.message)))
+    req.on('timeout', () => { req.destroy(); reject(new Error('请求超时60秒')) })
     req.write(data)
     req.end()
   })

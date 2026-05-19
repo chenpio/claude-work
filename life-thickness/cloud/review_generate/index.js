@@ -2,18 +2,21 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-// DeepSeek API 调用
-const ANTHROPIC_BASE_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com/anthropic'
-const ANTHROPIC_AUTH_TOKEN = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'deepseek-v4-pro[1m]'
+// DeepSeek API (OpenAI 兼容格式)
+const API_URL = process.env.ANTHROPIC_BASE_URL || 'https://api.deepseek.com'
+const API_KEY = process.env.ANTHROPIC_AUTH_TOKEN || 'sk-74714e9ca3fa4ada9bf9867db8a93b86'
+const API_MODEL = 'deepseek-chat'
 
 async function callAI(prompt) {
   const https = require('https')
-  const url = new URL(`${ANTHROPIC_BASE_URL}/v1/messages`)
+  const url = new URL(`${API_URL}/v1/chat/completions`)
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
-      model: ANTHROPIC_MODEL,
-      messages: [{ role: 'user', content: prompt }],
+      model: API_MODEL,
+      messages: [
+        { role: 'system', content: '你是一个温柔有共情力的生活复盘助手。请只返回要求的JSON格式，不要markdown代码块，不要多余文字。' },
+        { role: 'user', content: prompt }
+      ],
       temperature: 0.8,
       max_tokens: 4096,
     })
@@ -23,10 +26,9 @@ async function callAI(prompt) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ANTHROPIC_AUTH_TOKEN}`,
-          'anthropic-version': '2023-06-01',
+          'Authorization': `Bearer ${API_KEY}`,
         },
-        timeout: 30000,
+        timeout: 60000,
       },
       (res) => {
         let body = ''
@@ -34,15 +36,16 @@ async function callAI(prompt) {
         res.on('end', () => {
           try {
             const result = JSON.parse(body)
-            const text = result.content?.[0]?.text || result.choices?.[0]?.message?.content || ''
-            if (!text) throw new Error('API返回空: ' + body.slice(0, 200))
+            if (result.error) { reject(new Error(result.error.message || JSON.stringify(result.error))); return }
+            const text = result.choices?.[0]?.message?.content || ''
+            if (!text) { reject(new Error('API返回空: ' + body.slice(0, 200))); return }
             resolve(text)
-          } catch (e) { reject(new Error('解析失败: ' + body.slice(0, 300))) }
+          } catch (e) { reject(new Error('解析失败: ' + (e.message || '') + ' body:' + body.slice(0, 300))) }
         })
       },
     )
-    req.on('error', reject)
-    req.on('timeout', () => { req.destroy(); reject(new Error('请求超时')) })
+    req.on('error', (e) => reject(new Error('网络错误: ' + e.message)))
+    req.on('timeout', () => { req.destroy(); reject(new Error('请求超时60秒')) })
     req.write(data)
     req.end()
   })
