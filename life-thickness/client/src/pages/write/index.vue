@@ -265,7 +265,7 @@ async function handleSave() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .write-page { padding: 24rpx; padding-top: 100rpx; min-height: 100vh; background: #FAF7F2; }
 .toolbar {
   position: fixed; top: 0; left: 0; right: 0; padding: 24rpx 32rpx;

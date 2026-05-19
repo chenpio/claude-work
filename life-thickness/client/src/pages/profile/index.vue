@@ -62,18 +62,18 @@ async function handleExport() {
 }
 </script>
 
-<style lang="scss" scoped>
-.profile-page { padding: 24px; padding-top: 40px; min-height: 100vh; background: #FAF7F2; }
-.user-card { text-align: center; padding: 48px 32px; }
-.avatar { width: 120px; height: 120px; border-radius: 50%; display: block; margin: 0 auto 20px; }
-.nickname { font-size: 36px; font-weight: 600; display: block; }
-.bio { font-size: 26px; color: #9E9E9E; margin-top: 8px; display: block; }
-.menu-list { margin-top: 32px; }
+<style lang="scss">
+.profile-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.user-card { text-align: center; padding: 48rpx 32rpx; }
+.avatar { width: 120rpx; height: 120rpx; border-radius: 50%; display: block; margin: 0 auto 20rpx; }
+.nickname { font-size: 36rpx; font-weight: 600; display: block; }
+.bio { font-size: 26rpx; color: #9E9E9E; margin-top: 8rpx; display: block; }
+.menu-list { margin-top: 32rpx; }
 .menu-item {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 36px 32px; background: #FFFFFF; border-radius: 16px;
-  margin-bottom: 12px; font-size: 30px;
-  .arrow { color: #C4B5A5; font-size: 28px; }
+  padding: 36rpx 32rpx; background: #FFFFFF; border-radius: 16rpx;
+  margin-bottom: 12rpx; font-size: 30rpx;
+  .arrow { color: #C4B5A5; font-size: 28rpx; }
 }
-.version-info { text-align: center; padding: 48px; font-size: 24px; color: #C4B5A5; }
+.version-info { text-align: center; padding: 48rpx; font-size: 24rpx; color: #C4B5A5; }
 </style>

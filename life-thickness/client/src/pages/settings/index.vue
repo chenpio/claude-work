@@ -95,20 +95,20 @@ async function handleDeleteAccount() {
 }
 </script>
 
-<style lang="scss" scoped>
-.settings-page { padding: 24px; padding-top: 40px; min-height: 100vh; background: #FAF7F2; }
-.page-title { font-size: 40px; font-weight: 700; text-align: center; padding: 40px 0; }
-.setting-group { margin-bottom: 32px; }
-.group-title { font-size: 28px; color: #9E9E9E; padding: 0 12px 16px; display: block; }
+<style lang="scss">
+.settings-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.page-title { font-size: 40rpx; font-weight: 700; text-align: center; padding: 40rpx 0; }
+.setting-group { margin-bottom: 32rpx; }
+.group-title { font-size: 28rpx; color: #9E9E9E; padding: 0 12rpx 16rpx; display: block; }
 .setting-item {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 32px; background: #fff; border-bottom: 1px solid #F5F0E8; font-size: 30px;
-  &:first-of-type { border-radius: 16px 16px 0 0; }
-  &:last-of-type { border-radius: 0 0 16px 16px; border-bottom: none; }
+  padding: 32rpx; background: #fff; border-bottom: 1rpx solid #F5F0E8; font-size: 30rpx;
+  &:first-of-type { border-radius: 16rpx 16rpx 0 0; }
+  &:last-of-type { border-radius: 0 0 16rpx 16rpx; border-bottom: none; }
   .setting-value { color: #8B7F6E; }
   .arrow { color: #C4B5A5; }
   &.danger text { color: #FF8A80; }
 }
-.save-bar { padding: 40px 0; }
+.save-bar { padding: 40rpx 0; }
 .btn-primary { width: 100%; text-align: center; display: block; }
 </style>

@@ -26,11 +26,11 @@ function openReview(id: string) {
 }
 </script>
 
-<style lang="scss" scoped>
-.history-page { padding: 24px; padding-top: 40px; min-height: 100vh; background: #FAF7F2; }
-.page-title { font-size: 40px; font-weight: 700; text-align: center; padding: 40px 0; }
-.review-item { margin-bottom: 16px; }
-.review-range { font-size: 30px; font-weight: 600; display: block; }
-.review-stats { font-size: 26px; color: #9E9E9E; margin-top: 8px; }
-.empty { text-align: center; padding: 80px; font-size: 28px; color: #9E9E9E; }
+<style lang="scss">
+.history-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.page-title { font-size: 40rpx; font-weight: 700; text-align: center; padding: 40rpx 0; }
+.review-item { margin-bottom: 16rpx; }
+.review-range { font-size: 30rpx; font-weight: 600; display: block; }
+.review-stats { font-size: 26rpx; color: #9E9E9E; margin-top: 8rpx; }
+.empty { text-align: center; padding: 80rpx; font-size: 28rpx; color: #9E9E9E; }
 </style>

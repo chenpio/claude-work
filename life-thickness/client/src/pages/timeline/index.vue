@@ -90,24 +90,24 @@ async function randomDiary() {
 }
 </script>
 
-<style lang="scss" scoped>
-.timeline-page { padding: 24px; padding-top: 40px; min-height: 100vh; background: #FAF7F2; }
-.page-title { font-size: 40px; font-weight: 700; text-align: center; padding: 40px 0; }
-.cal-header { padding: 20px 0; .cal-month { font-size: 32px; font-weight: 600; } }
-.cal-weekdays { display: flex; padding: 12px 0; .weekday { flex: 1; text-align: center; font-size: 24px; color: #9E9E9E; } }
+<style lang="scss">
+.timeline-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.page-title { font-size: 40rpx; font-weight: 700; text-align: center; padding: 40rpx 0; }
+.cal-header { padding: 20rpx 0; .cal-month { font-size: 32rpx; font-weight: 600; } }
+.cal-weekdays { display: flex; padding: 12rpx 0; .weekday { flex: 1; text-align: center; font-size: 24rpx; color: #9E9E9E; } }
 .cal-days { display: flex; flex-wrap: wrap; }
-.cal-day { width: calc(100% / 7); height: 64px; text-align: center; line-height: 64px; font-size: 28px; border-radius: 50%; }
+.cal-day { width: calc(100% / 7); height: 64rpx; text-align: center; line-height: 64rpx; font-size: 28rpx; border-radius: 50%; }
 .cal-day.hasDiary { background: #F5F0E8; color: #8B7F6E; font-weight: 600; }
-.cal-day.today { border: 2px solid #8B7F6E; }
+.cal-day.today { border: 2rpx solid #8B7F6E; }
 
-.time-machine { text-align: center; padding: 40px; margin-top: 24px; }
-.tm-icon { font-size: 60px; }
-.tm-title { font-size: 32px; font-weight: 600; display: block; margin: 12px 0; }
-.tm-desc { font-size: 26px; color: #9E9E9E; }
+.time-machine { text-align: center; padding: 40rpx; margin-top: 24rpx; }
+.tm-icon { font-size: 60rpx; }
+.tm-title { font-size: 32rpx; font-weight: 600; display: block; margin: 12rpx 0; }
+.tm-desc { font-size: 26rpx; color: #9E9E9E; }
 
-.milestones { margin-top: 24px; }
-.section-title { font-size: 30px; font-weight: 600; display: block; margin-bottom: 16px; }
-.milestone-item { padding: 20px 0; border-bottom: 1px solid #ECECEC; }
-.ms-date { font-size: 24px; color: #9E9E9E; }
-.ms-title { font-size: 30px; font-weight: 500; display: block; margin-top: 4px; }
+.milestones { margin-top: 24rpx; }
+.section-title { font-size: 30rpx; font-weight: 600; display: block; margin-bottom: 16rpx; }
+.milestone-item { padding: 20rpx 0; border-bottom: 1rpx solid #ECECEC; }
+.ms-date { font-size: 24rpx; color: #9E9E9E; }
+.ms-title { font-size: 30rpx; font-weight: 500; display: block; margin-top: 4rpx; }
 </style>

@@ -47,15 +47,15 @@ async function doSearch() {
 function goDetail(id: string) { Taro.navigateTo({ url: `/pages/detail/index?id=${id}` }) }
 </script>
 
-<style lang="scss" scoped>
-.search-page { padding: 24px; padding-top: 40px; min-height: 100vh; background: #FAF7F2; }
-.search-bar { display: flex; gap: 16px; align-items: center; }
-.search-input { flex: 1; height: 80px; padding: 0 24px; background: #fff; border-radius: 48px; font-size: 30px; }
-.search-btn { padding: 16px 32px; background: #8B7F6E; color: #fff; border-radius: 48px; font-size: 28px; }
-.filter-row { display: flex; gap: 16px; padding: 24px 0; font-size: 26px; color: #9E9E9E; }
-.result-card { margin-bottom: 16px; }
-.result-date { font-size: 26px; color: #8B7F6E; }
-.result-content { font-size: 28px; line-height: 1.6; display: block; margin: 12px 0; }
-.tag { font-size: 24px; color: #8B7F6E; background: #F5F0E8; padding: 4px 12px; border-radius: 12px; margin-right: 8px; }
-.empty { text-align: center; padding: 80px; font-size: 28px; color: #9E9E9E; }
+<style lang="scss">
+.search-page { padding: 24rpx; padding-top: 40rpx; min-height: 100vh; background: #FAF7F2; }
+.search-bar { display: flex; gap: 16rpx; align-items: center; }
+.search-input { flex: 1; height: 80rpx; padding: 0 24rpx; background: #fff; border-radius: 48rpx; font-size: 30rpx; }
+.search-btn { padding: 16rpx 32rpx; background: #8B7F6E; color: #fff; border-radius: 48rpx; font-size: 28rpx; }
+.filter-row { display: flex; gap: 16rpx; padding: 24rpx 0; font-size: 26rpx; color: #9E9E9E; }
+.result-card { margin-bottom: 16rpx; }
+.result-date { font-size: 26rpx; color: #8B7F6E; }
+.result-content { font-size: 28rpx; line-height: 1.6; display: block; margin: 12rpx 0; }
+.tag { font-size: 24rpx; color: #8B7F6E; background: #F5F0E8; padding: 4rpx 12rpx; border-radius: 12rpx; margin-right: 8rpx; }
+.empty { text-align: center; padding: 80rpx; font-size: 28rpx; color: #9E9E9E; }
 </style>

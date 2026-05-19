@@ -94,7 +94,7 @@ function openTimeMachine() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .home-page {
   padding: 24rpx; padding-top: 60rpx; min-height: 100vh; background: #FAF7F2;
 }
