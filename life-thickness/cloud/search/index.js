@@ -6,7 +6,7 @@ exports.main = async (event) => {
   const { OPENID } = cloud.getWXContext()
   const { keyword, dateStart, dateEnd, tagFilter, emotionFilter, page = 1, pageSize = 20 } = event
 
-  let where: Record<string, unknown> = { userId: OPENID, isDeleted: false }
+  const where = { userId: OPENID, isDeleted: false }
 
   if (dateStart && dateEnd) {
     where.date = db.command.gte(dateStart).and(db.command.lte(dateEnd))

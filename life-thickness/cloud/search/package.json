@@ -1,1 +1,1 @@
-{"name":"search","version":"1.0.0","main":"index.js","dependencies":{"wx-server-sdk":"latest"}}
+{"name":"search","version":"1.0.0","main":"index.js","dependencies":{"wx-server-sdk":"^3.0.4"},"description":"","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"keywords":[],"author":"","license":"ISC","type":"commonjs"}

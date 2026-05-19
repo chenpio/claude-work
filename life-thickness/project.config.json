@@ -38,7 +38,10 @@
     "localPlugins": false,
     "condition": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "compileWorklet": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false
   },
   "cloudfunctionRoot": "cloud/",
   "compileType": "miniprogram",
@@ -51,5 +54,6 @@
   "packOptions": {
     "ignore": [],
     "include": []
-  }
+  },
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }
